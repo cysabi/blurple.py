@@ -16,13 +16,13 @@ async def on_message(message):
 
     # Test alerts
     if message.content.startswith('?alert'):
-        await message.channel.send(embed=ui.Alert("primary", "This is a test alert", "Check it out!"))
-        await message.channel.send(embed=ui.Alert("secondary", "This is a test alert", "Check it out!"))
+        await message.channel.send(embed=ui.Alert("primary", "This is a test alert", "Check it out!", name=False))
+        await message.channel.send(embed=ui.Alert("secondary", "This is a test alert", "Check it out!", name=False))
         await message.channel.send(embed=ui.Alert("success", "This is a test alert", "Check it out!"))
-        await message.channel.send(embed=ui.Alert("danger", "This is a test alert", "Check it out!"))
-        await message.channel.send(embed=ui.Alert("warning", "This is a test alert", "Check it out!"))
+        await message.channel.send(embed=ui.Alert("danger", "This is a test alert", "Check it out!", name="Error"))
+        await message.channel.send(embed=ui.Alert("warning", "This is a test alert", "Check it out!", emoji=False))
         await message.channel.send(embed=ui.Alert("info", "This is a test alert", "Check it out!"))
-        await message.channel.send(embed=ui.Alert("light", "This is a test alert", "Check it out!"))
-        await message.channel.send(embed=ui.Alert("dark", "This is a test alert", "Check it out!"))
+        await message.channel.send(embed=ui.Alert("light", "This is a test alert", "Check it out!", name=False))
+        await message.channel.send(embed=ui.Alert("dark", "This is a test alert", "Check it out!", name=False))
 
 client.run(os.getenv("TOKEN"))

@@ -14,13 +14,21 @@ class Alert(discord.Embed):
         "dark": (0x31373D, "\U0001f532"),
     }
 
-    def __init__(self, style, title: str, description: str = discord.Embed.Empty):
+    def __init__(self, style, title: str, description: str = discord.Embed.Empty, **kwargs):
         super().__init__(
             color=self.styles[style][0],
-            title=self.process_title(style, title),
+            title=self.process_title(style, title, **kwargs),
             description=description
         )
 
     @classmethod
-    def process_title(cls, style, title):
-        return f"{cls.styles[style][1]} `{style.capitalize()}:` **{title}**"
+    def process_title(cls, style, title, **kwargs):
+        output = ''
+
+        if kwargs.get("emoji") is not False:
+            output += cls.styles[style][1] + " "
+
+        if (name := kwargs.get("name", style.capitalize())) is not False:
+            output += f"`{name}:` "
+
+        return output + f"**{title}**"
