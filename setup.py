@@ -1,8 +1,8 @@
 from setuptools import setup
-import sys
+import os
 
 
-version = sys.argv[1].split("/")[-1]
+version = os.getenv("VERSION")
 
 
 with open('requirements.txt') as file:
