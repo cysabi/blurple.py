@@ -1,36 +1,41 @@
 import os
 import discord
+from discord.ext import commands
 
 from blurple import ui
 
-client = discord.Client()
+bot = commands.Bot(command_prefix='!')
 
-@client.event
+
+@bot.event
 async def on_ready():
-    print(f'{client}: Ready for Testing')
+    print(f'{bot}: Ready for Testing')
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
+@bot.command()
+async def ping(ctx):
+    await ctx.send(embed=ui.Alert("success",
+        title="Pong!",
+        description=f"Latency: `{round(bot.latency*1000)}ms`")
+    )
 
-    # Test alerts
-    if message.content == '.alert style':
-        await message.channel.send(embed=ui.Alert("primary", "This is a test alert", "Check it out!"))
-        await message.channel.send(embed=ui.Alert("secondary", "This is a test alert", "Check it out!"))
-        await message.channel.send(embed=ui.Alert("success", "This is a test alert", "Check it out!"))
-        await message.channel.send(embed=ui.Alert("danger", "This is a test alert", "Check it out!"))
-        await message.channel.send(embed=ui.Alert("warning", "This is a test alert", "Check it out!"))
-        await message.channel.send(embed=ui.Alert("info", "This is a test alert", "Check it out!"))
-        await message.channel.send(embed=ui.Alert("light", "This is a test alert", "Check it out!"))
-        await message.channel.send(embed=ui.Alert("dark", "This is a test alert", "Check it out!"))
-    if message.content == '.alert custom':
-        await message.channel.send(embed=ui.Alert("primary", "Custom Alerts", "Default style"))
-        await message.channel.send(embed=ui.Alert("primary", "Custom Alerts", "Alternate name", name="Alternate"))
-        await message.channel.send(embed=ui.Alert("primary", "Custom Alerts", "No name", name=False))
-        await message.channel.send(embed=ui.Alert("primary", "Custom Alerts", "No emoji", emoji=False))
-        await message.channel.send(embed=ui.Alert("primary", "Custom Alerts", "No emoji, alternate name", emoji=False, name="Alternate"))
-        await message.channel.send(embed=ui.Alert("primary", "Custom Alerts", "No emoji, no name", emoji=False, name=False))
+@bot.command()
+async def alert(ctx, sub="styles"):
+    if sub == "styles":
+        await ctx.send(embed=ui.Alert("primary", "This is a test alert", "Check it out!"))
+        await ctx.send(embed=ui.Alert("secondary", "This is a test alert", "Check it out!"))
+        await ctx.send(embed=ui.Alert("success", "This is a test alert", "Check it out!"))
+        await ctx.send(embed=ui.Alert("danger", "This is a test alert", "Check it out!"))
+        await ctx.send(embed=ui.Alert("warning", "This is a test alert", "Check it out!"))
+        await ctx.send(embed=ui.Alert("info", "This is a test alert", "Check it out!"))
+        await ctx.send(embed=ui.Alert("light", "This is a test alert", "Check it out!"))
+        await ctx.send(embed=ui.Alert("dark", "This is a test alert", "Check it out!"))
+    if sub == "custom":
+        await ctx.send(embed=ui.Alert("primary", "Custom Alerts", "Default style"))
+        await ctx.send(embed=ui.Alert("primary", "Custom Alerts", "Alternate name", name="Alternate"))
+        await ctx.send(embed=ui.Alert("primary", "Custom Alerts", "No name", name=False))
+        await ctx.send(embed=ui.Alert("primary", "Custom Alerts", "No emoji", emoji=False))
+        await ctx.send(embed=ui.Alert("primary", "Custom Alerts", "No emoji, alternate name", emoji=False, name="Alternate"))
+        await ctx.send(embed=ui.Alert("primary", "Custom Alerts", "No emoji, no name", emoji=False, name=False))
 
 
-client.run(os.getenv("TOKEN"))
+bot.run(os.getenv("TOKEN"))
