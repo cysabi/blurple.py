@@ -1,6 +1,1 @@
 discord
-
-# Packaging tools
-wheel
-setuptools
-twine

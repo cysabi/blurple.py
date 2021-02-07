@@ -1,7 +1,8 @@
 from setuptools import setup
+import sys
 
 
-version = '0.0.1'
+version = sys.argv[1].split("/")[-1]
 
 
 with open('requirements.txt') as file:
