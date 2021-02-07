@@ -20,7 +20,7 @@ _Documentation can be found [here](https://lepto.tech/blurple.py)._
 1. Make sure your python version is up-to-date.
 1. Install the package with `pip install blurple.py`.
 
-### Example UI
+### Example with `blurple.ui`
 ```diff
   import discord
   from discord.ext import commands
