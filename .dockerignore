@@ -1,0 +1,8 @@
+*
+
+!LICENSE
+!requirements.txt
+!blurple
+
+**/db/data
+**/__pycache__
