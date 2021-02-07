@@ -2,7 +2,7 @@ from setuptools import setup
 import os
 
 
-version = os.getenv("VERSION").split("/")[-1]
+version = os.getenv("VERSION").split("/")[-1][1:]
 
 
 with open('requirements.txt') as file:
