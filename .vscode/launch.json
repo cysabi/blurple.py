@@ -8,7 +8,7 @@
             "name": "Python: Test Bot",
             "type": "python",
             "request": "launch",
-            "program": "blurple/test.py",
+            "program": "test.py",
             "console": "integratedTerminal",
         }
     ]

@@ -1,7 +1,7 @@
 import os
 import discord
 
-import ui
+from blurple import ui
 
 client = discord.Client()
 
