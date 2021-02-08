@@ -6,7 +6,7 @@ version = os.getenv("VERSION").split("/")[-1][1:]
 
 
 with open('requirements.txt') as file:
-  requirements = file.read().splitlines()
+    requirements = file.read().splitlines()
 
 
 with open('README.md') as file:
