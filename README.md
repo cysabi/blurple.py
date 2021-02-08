@@ -10,8 +10,9 @@ Blurple.py is a framework built on top of discord.py, giving you the tools you n
 
 Here's what's included:
 1. `blurple.ui` All the styled components you'll ever need for building user interfaces in discord.
-2. `blurple.io` Utilities to build stable multi-step commands with ease.
-3. `blurple.ext` A route-based microframework for registering commands.
+  - Planned support for modals and more in the future, using discord's new api.
+2. `blurple.io` Robust functions that enable you to build stable, multi-step commands with ease.
+3. `blurple.ext` A minimal, route-based microframework for registering commands.
 
 ## Usage <!-- Using the product -->
 _Documentation can be found [here](https://lepto.tech/blurple.py)._
