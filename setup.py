@@ -23,7 +23,7 @@ kwargs = {
     "version": version,
     "packages": ['blurple'],
     "license": 'MIT',
-    "description": 'A framework built on discord.py',
+    "description": 'A front-end framework for discord.py',
     "long_description": readme,
     "long_description_content_type": "text/markdown",
     "include_package_data": True,
