@@ -2,7 +2,7 @@ import os
 import discord
 from discord.ext import commands
 
-from blurple import ui
+from blurple import ui, io
 
 bot = commands.Bot(command_prefix='!')
 
@@ -10,6 +10,12 @@ bot = commands.Bot(command_prefix='!')
 @bot.event
 async def on_ready():
     print(f'{bot}: Ready for Testing')
+
+@bot.command()
+async def reply(ctx):
+    await ctx.send("Enter a number.")
+    reply = await io.MessageReply(ctx, validate=r'^[0-9]{1,}$').result()
+    await ctx.send(embed=ui.Alert(ui.Alert.Style.SUCCESS, "Valid Reply", reply))
 
 @bot.command()
 async def ping(ctx):
