@@ -9,7 +9,7 @@ bot = commands.Bot(command_prefix='!')
 
 @bot.event
 async def on_ready():
-    print(f'{bot}: Ready for Testing')
+    print(f'{bot.name}: Ready for Testing')
 
 @bot.command()
 async def reply(ctx):
