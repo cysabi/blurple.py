@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import os
 
 
@@ -21,7 +21,7 @@ kwargs = {
         "Docs": "https://lepto.tech/blurple.py",
     },
     "version": version,
-    "packages": ['blurple'],
+    "packages": find_packages(),
     "license": 'MIT',
     "description": 'A front-end framework for discord.py',
     "long_description": readme,
@@ -42,4 +42,3 @@ kwargs = {
 
 
 setup(name='blurple.py', **kwargs)
-setup(name='blurple', **kwargs)
