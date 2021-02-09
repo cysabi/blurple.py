@@ -3,6 +3,7 @@ import os
 
 
 version = os.getenv("VERSION").split("/")[-1][1:]
+name = os.getenv("NAME")
 
 
 with open('requirements.txt') as file:
@@ -41,4 +42,4 @@ kwargs = {
 }
 
 
-setup(name='blurple.py', **kwargs)
+setup(name=name, **kwargs)
