@@ -5,8 +5,8 @@ import discord
 class Alert(discord.Embed):
 
     class Style(Enum):
-        PRIMARY = (0x7289DA, "<:primary:807729299603980308>")
-        SECONDARY = (0x99AAB5, "<:secondary:807729299531759637>")
+        PRIMARY = (0x7289DA, "<:primary:808860644865998848>")
+        SECONDARY = (0x99AAB5, "<:secondary:808860792555962389>")
         SUCCESS = (0x77B255, "\u2705")
         DANGER = (0xDD2E44, "\U0001f6ab")
         WARNING = (0xFFCC4D, "\u26a0\ufe0f")
