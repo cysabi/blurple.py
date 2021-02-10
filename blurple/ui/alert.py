@@ -9,7 +9,7 @@ class Alert(discord.Embed):
             There are 8 main alert styles, but you can also provide your own style in the form of a (color, emoji) tuple.
             Primary and Secondary styles use custom emoji, so are unable to be used out of the box.
             To work around this, I've provided the source .svgs in the repository for the custom emojis used throughout the project. you can add these to a server that your bot is in, then create a custom style.
-            Alternatively, if you want, you can support me on ko-fi, and I'll invite your bot to my server where it'll have access to the original custom emojis.
+            Alternatively, if you want, you can support me on [ko-fi](https://ko-fi.com/s/7705c20532), and I'll invite your bot to my server where it'll have access to the original custom emojis.
     """
 
     class Style(Enum):
