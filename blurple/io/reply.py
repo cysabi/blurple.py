@@ -49,7 +49,9 @@ class Reply(ABC):
     async def result(self):
         """Await the result of the reply."""
         await self.on_reply_init(**self.kwargs)  # Event method
-        return await self.get_valid_reply()
+        reply = await self.get_valid_reply()
+        await self.on_reply_complete()  # Event method
+        return reply
 
     async def get_valid_reply(self):
         """Wrap get_reply with validation, error handling, and recursive calls."""
@@ -71,7 +73,7 @@ class Reply(ABC):
         await self.on_pre_reply()  # Event method
         # Wait for reply
         try:
-            reply = await self.ctx.bot.wait_for(
+            raw_reply = await self.ctx.bot.wait_for(
                 self.event,
                 check=self.reply_check,
                 timeout=self.timeout
@@ -79,7 +81,8 @@ class Reply(ABC):
         except asyncio.TimeoutError:
             reply = None
         else:
-            await self.on_reply_attempt(reply)  # Event method
+            r = await self.on_reply_attempt(raw_reply)  # Event method
+            reply = r if r else raw_reply
         return reply
 
     async def send_error(self) -> discord.Message:
@@ -109,7 +112,7 @@ class Reply(ABC):
         content = cls.get_reply_content(reply)
         if isinstance(valid, str):
             return bool(re.search(valid, content))
-        if getattr(valid, "__contains__", False):
+        if cls.is_container(valid):
             return content in valid
         if callable(valid):
             if inspect.iscoroutinefunction(object):
@@ -122,7 +125,11 @@ class Reply(ABC):
         if isinstance(reply, discord.Message):
             return reply.content
         if isinstance(reply, discord.Reaction):
-            return reply.emoji
+            return str(reply.emoji)
+
+    @staticmethod
+    def is_container(obj: t.Object):
+        return getattr(obj, "__contains__", False)
 
     async def on_reply_init(self):
         """Runs on reply class creation."""
@@ -134,7 +141,10 @@ class Reply(ABC):
         """The check to authorize reply."""
 
     async def on_reply_attempt(self, reply):
-        """ Any actions to do after each reply attempt, can be run multiple times if validation is on."""
+        """ Any actions to do after each reply attempt, can be run multiple times if validation is on.
+
+            :return: You can optionally return a parsed version of the reply to be used instead of the raw reply object.
+        """
 
     async def on_reply_complete(self):
         """Any actions to do after reply is completely done, only runs once reply is validated and returned."""
@@ -155,19 +165,19 @@ class MessageReply(Reply):
 class ReactionAddReply(Reply):
     event = "reaction_add"
 
-    async def on_reply_init(self, reaction_message):
-        self.reaction_message = reaction_message
-        if getattr(self.validate, "__contains__", False):
+    async def on_reply_init(self, message):
+        self.message = message
+        if self.is_container(self.validate):
             for react in self.validate:
-                await self.reaction_message.add_reaction(react)
+                await self.message.add_reaction(react)
 
-    def reply_check(self, reply):
-        return reply[1].id == self.ctx.author.id and \
-               reply[0].message.id == self.reaction_message.id and \
-               isinstance(reply[0].emoji, str)
+    def reply_check(self, reply, user):
+        return user.id == self.ctx.author.id and \
+               reply.message.id == self.message.id
 
     async def on_reply_attempt(self, reply: t.Tuple[discord.Reaction, discord.Member]):
-        await self.reaction_message.remove_reaction(reply[0].emoji, self.ctx.author),
+        await self.message.remove_reaction(reply[0].emoji, self.ctx.author)
+        return reply[0]
 
     async def on_reply_complete(self):
         await self.message.clear_reactions()
