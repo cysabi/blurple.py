@@ -3,10 +3,18 @@ import discord
 
 
 class Alert(discord.Embed):
+    """ A subclass of discord.Embed for stylish alert messages.
+
+        :param style: A contextual class describing the style of the alert.
+            There are 8 main alert styles, but you can also provide your own style in the form of a (color, emoji) tuple.
+            Primary and Secondary styles use custom emoji, so are unable to be used out of the box.
+            To work around this, I've provided the source .svgs in the repository for the custom emojis used throughout the project. you can add these to a server that your bot is in, then create a custom style.
+            Alternatively, if you want, you can support me on ko-fi, and I'll invite your bot to my server where it'll have access to the original custom emojis.
+    """
 
     class Style(Enum):
-        PRIMARY = (0x7289DA, "<:primary:808870056813002793>")
-        SECONDARY = (0x99AAB5, "<:secondary:808870057131376680>")
+        PRIMARY = (0x7289DA, "<:primary:808874731763007488>")
+        SECONDARY = (0x99AAB5, "<:secondary:808874731758813205>")
         SUCCESS = (0x77B255, "\u2705")
         DANGER = (0xDD2E44, "\U0001f6ab")
         WARNING = (0xFFCC4D, "\u26a0\ufe0f")
