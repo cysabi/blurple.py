@@ -9,13 +9,21 @@ bot = commands.Bot(command_prefix='!')
 
 @bot.event
 async def on_ready():
-    print(f'{bot.name}: Ready for Testing')
+    print(f'{bot.user.name}: Ready for Testing')
 
 @bot.command()
-async def reply(ctx):
-    await ctx.send("Enter a number.")
-    reply = await io.MessageReply(ctx, validate=r'^[0-9]{1,}$').result()
-    await ctx.send(embed=ui.Alert(ui.Alert.Style.SUCCESS, "Valid Reply", reply))
+async def reply(ctx, sub="message"):
+    if sub == "message":
+        await ctx.send("Enter a number.")
+        reply = await io.MessageReply(ctx, validate=r'^[0-9]{1,}$').result()
+        await ctx.send(embed=ui.Alert(ui.Alert.Style.SUCCESS, "Valid Reply", reply.content))
+    if sub == "reaction":
+        message = await ctx.send("Enter reaction.")
+        reply = await io.ReactionAddReply(ctx,
+            validate=["<:primary:808874731763007488>", "<:secondary:808874731758813205>"],
+            message=message).result()
+        await ctx.send(embed=ui.Alert(ui.Alert.Style.SUCCESS, "Valid Reply", str(reply.emoji)))
+
 
 @bot.command()
 async def ping(ctx):
