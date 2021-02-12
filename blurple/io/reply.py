@@ -128,7 +128,7 @@ class Reply(ABC):
             return str(reply.emoji)
 
     @staticmethod
-    def is_container(obj: t.Object):
+    def is_container(obj: t.Collection):
         return getattr(obj, "__contains__", False)
 
     async def on_reply_init(self):
