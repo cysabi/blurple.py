@@ -10,6 +10,11 @@ class Alert(discord.Embed):
             Primary and Secondary styles use custom emoji, so are unable to be used out of the box.
             To work around this, I've provided the source .svgs in the repository for the custom emojis used throughout the project. you can add these to a server that your bot is in, then create a custom style.
             Alternatively, if you want, you can support me on [ko-fi](https://ko-fi.com/s/7705c20532), and I'll invite your bot to my server where it'll have access to the original custom emojis.
+        :param title: The title of the alert, will be wrapped in emoji and alert name unless specified in options.
+        :param description: An optional description of the alert, use your imagination for it's use.
+        :param **options: Alert options to customize it's look.
+            - `emoji`: Defaults to `True`. Can be set to false to remove the emoji from the alert title.
+            - `name`: Defaults to `True`. Can be set to false to remove the name of the alert from the title.
     """
 
     class Style(Enum):
@@ -25,21 +30,21 @@ class Alert(discord.Embed):
         def __getitem__(self, key):
             return self.value[key]
 
-    def __init__(self, style: Style, title: str, description: str = discord.Embed.Empty, **kwargs):
+    def __init__(self, style: Style, title: str, description: str = discord.Embed.Empty, **options):
         super().__init__(
             color=style[0],
-            title=self.process_title(style, title, **kwargs),
+            title=self.process_title(style, title, **options),
             description=description
         )
 
     @classmethod
-    def process_title(cls, style: Style, title: str, **kwargs):
+    def process_title(cls, style: Style, title: str, **options):
         output: str = ''
 
-        if kwargs.get("emoji") is not False:
+        if options.get("emoji") is not False:
             output += style[1] + " "
 
-        if (name := kwargs.get("name", style.name.capitalize())) is not False:
+        if (name := options.get("name", style.name.capitalize())) is not False:
             output += f"`{name}:` "
 
         return output + f"**{title}**"
