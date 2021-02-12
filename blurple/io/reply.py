@@ -224,7 +224,7 @@ class MessageReply(Reply):
 
 
 class ReactionAddReply(Reply):
-    event = "reaction_add"
+    event = "raw_reaction_add"
 
     async def on_reply_init(self, message):
         self.message = message
@@ -232,13 +232,13 @@ class ReactionAddReply(Reply):
             for react in self.validate:
                 await self.message.add_reaction(react)
 
-    def reply_check(self, reply, user):
-        return user.id == self.ctx.author.id and \
-               reply.message.id == self.message.id
+    def reply_check(self, payload):
+        return payload.user_id == self.ctx.author.id and \
+               payload.message_id == self.message.id
 
-    async def on_reply_attempt(self, reply: t.Tuple[discord.Reaction, discord.Member]):
-        await self.message.remove_reaction(reply[0].emoji, self.ctx.author)
-        return reply[0]
+    async def on_reply_attempt(self, payload: discord.RawReactionActionEvent):
+        await self.message.remove_reaction(payload.emoji, self.ctx.bot.get_user(payload.user_id))
+        return payload
 
     async def on_reply_complete(self):
         await self.message.clear_reactions()
