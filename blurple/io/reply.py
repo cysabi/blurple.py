@@ -242,3 +242,10 @@ class ReactionAddReply(Reply):
 
     async def on_reply_complete(self):
         await self.message.clear_reactions()
+
+
+class ReactionRemoveReply(ReactionAddReply):
+    event = "raw_reaction_remove"
+
+    async def on_reply_attempt(self, payload: discord.RawReactionActionEvent):
+        return payload
