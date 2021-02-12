@@ -1,3 +1,4 @@
+from __future__ import annotations
 import re
 import inspect
 import typing as t
@@ -46,12 +47,23 @@ class Reply(ABC):
         self.timeout = timeout
         self.kwargs = kwargs
 
+    def __str__(self):
+        return self.__class__.__name__
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__} for '{self.event}'>"
+
     async def result(self):
         """Await the result of the reply."""
         await self.on_reply_init(**self.kwargs)  # Event method
         reply = await self.get_valid_reply()
-        await self.on_reply_complete()  # Event method
+        await self.cleanup()  # Event method
         return reply
+
+    async def cleanup(self):
+        """Clean up reply after result."""
+        await self.on_reply_complete()
+        await self.delete_error()
 
     async def get_valid_reply(self):
         """Wrap get_reply with validation, error handling, and recursive calls."""
@@ -65,7 +77,6 @@ class Reply(ABC):
                 await self.send_error()
                 return await self.get_valid_reply()
 
-        await self.delete_error()
         return reply
 
     async def get_reply(self):
@@ -105,6 +116,7 @@ class Reply(ABC):
         await self.error.delete()
         self.error = None
 
+
     @classmethod
     async def validate_reply(cls, reply, valid) -> bool:
         if valid is None:
@@ -124,12 +136,61 @@ class Reply(ABC):
         """Retrieve the content of the reply."""
         if isinstance(reply, discord.Message):
             return reply.content
-        if isinstance(reply, discord.Reaction):
+        if isinstance(reply, (discord.Reaction, discord.RawReactionActionEvent)):
             return str(reply.emoji)
 
     @staticmethod
-    def is_container(obj: t.Collection):
+    def is_container(obj: t.Union[t.Container, t.Any]):
         return getattr(obj, "__contains__", False)
+
+    @classmethod
+    async def result_between(cls, replies: t.Container[Reply]):
+        """ Return the first completed result between multiple reply objects.
+
+            :param replies: A collection of Reply objects.
+        """
+        # Prepare tasks
+        timeouts = []
+        def parse_task(reply: Reply):
+            # Handle timeout
+            timeouts.append(reply.timeout)
+            reply.timeout = None
+            # Return task
+            return asyncio.create_task(reply.result(), name=reply)
+
+        # Wait tasks
+        tasks = [parse_task(task) for task in replies]
+        task, result = await cls.wait_tasks(tasks, timeout=min(timeouts))
+
+        # Get original reply object
+        for reply in replies:
+            if str(reply) == task.get_name():
+                break
+        # Run cleanup on cancelled replies
+        replies.remove(reply)
+        for cancelled in replies:
+            await cancelled.cleanup()
+
+        # Return original reply object and the result
+        return reply, result
+
+    @staticmethod
+    async def wait_tasks(tasks: t.Container[asyncio.Task], timeout: int) -> t.Tuple[t.Optional[asyncio.Future], t.Optional[t.Any]]:
+        """ Try block to asyncio.wait a set of tasks with timeout handling.
+
+            :param tasks: A collection of task objects
+            :param timeout: How long in seconds to wait until a timeout occurs.
+            :return: A tuple containing the task and the result. Both will be None if a timeout occurs.
+        """
+        done, pending = await asyncio.wait(tasks, timeout=timeout, return_when=asyncio.FIRST_COMPLETED)
+        for rest in pending:
+            rest.cancel()
+
+        if done:
+            task: asyncio.Future = done.pop()
+            return task, task.result()
+
+        return None, None
 
     async def on_reply_init(self):
         """Runs on reply class creation."""
