@@ -35,6 +35,15 @@ class Testing(commands.Cog, command_attrs={"invoke_without_command": True}):
         pass
 
     @reply.command()
+    async def multiple(self, ctx):
+        message = await ctx.send("React or send a message")
+        reply, result = await io.Reply.result_between({
+            io.MessageReply(ctx),
+            io.ReactionAddReply(ctx, validate=['☑️','🔘'], message=message)
+        })
+        await ctx.send(embed=ui.Alert(ui.Alert.Style.SUCCESS, reply, result))
+
+    @reply.command()
     async def message(self, ctx):
         await ctx.send("Enter a number.")
         reply = await io.MessageReply(ctx, validate=r'^[0-9]{1,}$').result()
