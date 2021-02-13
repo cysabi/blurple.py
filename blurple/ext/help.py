@@ -40,10 +40,10 @@ class HelpCommand(commands.DefaultHelpCommand):
         embed = self.create_embed(
             title=self.sig(group, sig=True),
             description=group.help,
-            fields=[{
+            **({"fields": [{
                 "name": "Subcommands:",
                 "value": await self.list_commands(group.commands)
-            }]
+            }]} if group.commands else {})
         )
         await self.get_destination().send(embed=embed)
 
