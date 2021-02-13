@@ -5,7 +5,7 @@ from discord.ext import commands
 class HelpCommand(commands.DefaultHelpCommand):
     """Set up help command for the bot."""
 
-    def __init__(self, color, **options):
+    def __init__(self, color = discord.Embed.Empty, **options):
         super().__init__(**options)
         self.color = color
 
