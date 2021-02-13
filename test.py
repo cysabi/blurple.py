@@ -6,7 +6,7 @@ from blurple import ui, io, ext
 
 
 bot = commands.Bot(command_prefix='!')
-bot.help_command = ext.HelpCommand(ui.Alert.Style.PRIMARY[0])
+bot.help_command = ext.HelpCommand()
 router = ext.Router(bot)
 
 @bot.event
