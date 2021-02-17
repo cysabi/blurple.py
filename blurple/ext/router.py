@@ -1,18 +1,32 @@
 from discord.ext import commands
-import discord
 
-class Router():
+class Router:
+    """ Create a router, connected to a bot instance to allow route-based command registry.
 
-    def __init__(self, bot):
+        :Example Usage:
+        .. code-block:: python
+
+            bot = commands.Bot()
+            router = Router(bot)
+
+            @router.route(["cmd", "subcmd"])
+            async def subcmd(ctx):
+                pass
+    """
+
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     def route(self, command: list, **kwargs):
-        """Register command route."""
+        """ A shortcut decorator that registers a command route.
+
+            :param list[str] command: A list of strings defining the route to the command.
+        """
         def deco(func):
-            return self.get_command_group(command, func, **kwargs)
+            return self._get_command_group(command, func, **kwargs)
         return deco
 
-    def get_command_group(self, path: list, func = None, **kwargs):
+    def _get_command_group(self, path: list, func = None, **kwargs):
         """Get command group."""
         if len(path) == 0:
             return self.bot
@@ -21,7 +35,7 @@ class Router():
         # If it doesn't exist, create it group
         if group is None:
             # Get the parent group
-            parent = self.get_command_group(path[:-1])
+            parent = self._get_command_group(path[:-1])
             # Create the func if it doesn't exist
             if func is None:
                 async def func(ctx):
