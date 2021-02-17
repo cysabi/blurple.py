@@ -1,4 +1,4 @@
-from enum import Enum
+from .style import Style
 import discord
 
 
