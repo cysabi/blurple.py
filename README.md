@@ -35,7 +35,7 @@ _Documentation can be found [here](https://lepto.tech/blurple.py)._
   @bot.command()
   async def ping(ctx):
 -     await ctx.send('Pong!')
-+     await ctx.send(embed=ui.Alert(ui.Alert.Style.SUCCESS,
++     await ctx.send(embed=ui.Alert(ui.Style.SUCCESS,
 +         title="Pong!",
 +         description=f"Latency: `{round(bot.latency*1000)}ms`")
 +     )
