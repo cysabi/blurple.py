@@ -58,31 +58,40 @@ class Reply(ABC):
     async def result(self):
         """Await the result of the reply."""
         await self.on_reply_init(**self.kwargs)  # Event method
-        reply = await self._get_valid_reply()
+        reply = await self.get_valid_reply()
         await self.cleanup()  # Event method
         return reply
 
-    async def _cleanup(self):
-        """Clean up reply after result."""
-        await self.on_reply_complete()
-        await self._delete_error()
+    async def cleanup(self):
+        """ Clean up reply after result.
 
-    async def _get_valid_reply(self):
-        """Wrap get_reply with validation, error handling, and recursive calls."""
-        reply = await self._get_reply()
+            :meta private:
+        """
+        await self.on_reply_complete()
+        await self.delete_error()
+
+    async def get_valid_reply(self):
+        """ Wrap get_reply with validation, error handling, and recursive calls.
+
+            :meta private:
+        """
+        reply = await self.get_reply()
 
         if reply is not None:  # Reply hasn't timed out
             # Validate reply
-            is_valid = await self._validate_reply(reply, self.validate)
+            is_valid = await self.validate_reply(reply, self.validate)
             # If reply isn't valid, recursively call function
             if not is_valid:
-                await self._send_error()
-                return await self._get_valid_reply()
+                await self.send_error()
+                return await self.get_valid_reply()
 
         return reply
 
-    async def _get_reply(self):
-        """Get a reply from the user, no validation."""
+    async def get_reply(self):
+        """ Get a reply from the user, no validation.
+
+            :meta private:
+        """
         await self.on_pre_reply()  # Event method
         # Wait for reply
         try:
@@ -98,21 +107,26 @@ class Reply(ABC):
             reply = r if r else raw_reply
         return reply
 
-    async def _send_error(self) -> discord.Message:
+    async def send_error(self) -> discord.Message:
         """ Send an error message to the user.
 
             Will replace the current error message.
             :param error: An embed or a string representing the error message.
+
+            :meta private:
         """
-        await self._delete_error()
+        await self.delete_error()
         if isinstance(self.on_error, discord.Embed):
             self.error = await self.ctx.send(embed=self.on_error)
         elif isinstance(self.on_error, str):
             self.error = await self.ctx.send(self.on_error)
         return self.error
 
-    async def _delete_error(self) -> None:
-        """Delete the current error message, if it exists."""
+    async def delete_error(self) -> None:
+        """ Delete the current error message, if it exists.
+
+            :meta private:
+        """
         if self.error is None:
             return
         await self.error.delete()
@@ -120,13 +134,17 @@ class Reply(ABC):
 
 
     @classmethod
-    async def _validate_reply(cls, reply, valid) -> bool:
+    async def validate_reply(cls, reply, valid) -> bool:
+        """ Detect validation type and check it against the reply.
+
+            :meta private:
+        """
         if valid is None:
             return True
-        content = cls._get_reply_content(reply)
+        content = cls.get_reply_content(reply)
         if isinstance(valid, str):
             return bool(re.search(valid, content))
-        if cls._is_container(valid):
+        if cls.is_container(valid):
             return content in valid
         if callable(valid):
             if inspect.iscoroutinefunction(object):
@@ -134,15 +152,18 @@ class Reply(ABC):
             return valid()
 
     @staticmethod
-    def _get_reply_content(reply):
-        """Retrieve the content of the reply."""
+    def get_reply_content(reply):
+        """ Retrieve the content of the reply.
+
+            :meta private:
+        """
         if isinstance(reply, discord.Message):
             return reply.content
         if isinstance(reply, (discord.Reaction, discord.RawReactionActionEvent)):
             return str(reply.emoji)
 
     @staticmethod
-    def _is_container(obj: t.Union[t.Container, t.Any]):
+    def is_container(obj: t.Union[t.Container, t.Any]):
         return getattr(obj, "__contains__", False)
 
     @classmethod
@@ -162,7 +183,7 @@ class Reply(ABC):
 
         # Wait tasks
         tasks = [parse_task(task) for task in replies]
-        task, result = await cls._wait_tasks(tasks, timeout=min(timeouts))
+        task, result = await cls.wait_tasks(tasks, timeout=min(timeouts))
 
         # Get original reply object
         for reply in replies:
@@ -177,12 +198,13 @@ class Reply(ABC):
         return reply, result
 
     @staticmethod
-    async def _wait_tasks(tasks: t.Container[asyncio.Task], timeout: int) -> t.Tuple[t.Optional[asyncio.Future], t.Optional[t.Any]]:
+    async def wait_tasks(tasks: t.Container[asyncio.Task], timeout: int) -> t.Tuple[t.Optional[asyncio.Future], t.Optional[t.Any]]:
         """ Try block to asyncio.wait a set of tasks with timeout handling.
 
             :param tasks: A collection of task objects
             :param timeout: How long in seconds to wait until a timeout occurs.
             :return: A tuple containing the task and the result. Both will be None if a timeout occurs.
+            :meta private:
         """
         done, pending = await asyncio.wait(tasks, timeout=timeout, return_when=asyncio.FIRST_COMPLETED)
         for rest in pending:
@@ -252,7 +274,7 @@ class ReactionAddReply(Reply):
     async def on_reply_init(self, message):
         """Specialized to add vaild reaction emojis to message, if validation is on."""
         self.message = message
-        if self._is_container(self.validate):
+        if self.is_container(self.validate):
             for react in self.validate:
                 await self.message.add_reaction(react)
 

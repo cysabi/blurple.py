@@ -23,11 +23,14 @@ class Router:
             :param list[str] command: A list of strings defining the route to the command.
         """
         def deco(func):
-            return self._get_command_group(command, func, **kwargs)
+            return self.get_command_group(command, func, **kwargs)
         return deco
 
-    def _get_command_group(self, path: list, func = None, **kwargs):
-        """Get command group."""
+    def get_command_group(self, path: list, func = None, **kwargs):
+        """ Get command group.
+
+            :meta private:
+        """
         if len(path) == 0:
             return self.bot
         # Try and find group
@@ -35,7 +38,7 @@ class Router:
         # If it doesn't exist, create it group
         if group is None:
             # Get the parent group
-            parent = self._get_command_group(path[:-1])
+            parent = self.get_command_group(path[:-1])
             # Create the func if it doesn't exist
             if func is None:
                 async def func(ctx):
