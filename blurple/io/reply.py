@@ -11,9 +11,9 @@ from  blurple import ui
 
 
 class Reply(ABC):
-    """ Get a reply from the user. This is an abstract class to be extended.
+    """ An abstract class for getting replies, to be extended.
 
-        If you are trying to get a reply, you may be looking for :class:`MessageReply` or :class:`ReactionAddReply`.
+        If you are trying use this class directly to get a reply from the, you may be looking for :class:`MessageReply` or :class:`ReactionAddReply`.
 
         :Extending this class::
         In order to extend this class, there are 5 methods you can specialize.
