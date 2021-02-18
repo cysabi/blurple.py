@@ -15,6 +15,7 @@ templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'basic'
+html_favicon = 'favicon.png'
 html_static_path = ['_static']
 html_search_scorer = '_static/scorer.js'
 html_js_files = [
