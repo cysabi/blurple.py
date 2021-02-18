@@ -18,6 +18,7 @@
   <script src="_static/settings.js"></script>
   <script src="_static/copy.js"></script>
   <script src="_static/sidebar.js"></script>
+  <link rel="shortcut icon" href="_static/favicon.png"/>
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
 </head>
@@ -147,8 +148,8 @@ To work around this, I’ve provided the source .svgs in the repository for the 
 <dl class="class">
 <dt id="blurple.io.Reply">
 <em class="property">class </em><code class="sig-prename descclassname">blurple.io.</code><code class="sig-name descname">Reply</code><span class="sig-paren">(</span><em class="sig-param">ctx: discord.ext.commands.context.Context</em>, <em class="sig-param">*</em>, <em class="sig-param">validate: Union[str</em>, <em class="sig-param">Callable</em>, <em class="sig-param">List</em>, <em class="sig-param">None] = None</em>, <em class="sig-param">on_error: Union[str</em>, <em class="sig-param">discord.embeds.Embed] = &lt;blurple.ui.alert.Alert object&gt;</em>, <em class="sig-param">timeout=180</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#blurple.io.Reply" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a reply from the user. This is an abstract class to be extended.</p>
-<p>If you are trying to get a reply, you may be looking for <a class="reference internal" href="#blurple.io.MessageReply" title="blurple.io.MessageReply"><code class="xref py py-class docutils literal notranslate"><span class="pre">MessageReply</span></code></a> or <a class="reference internal" href="#blurple.io.ReactionAddReply" title="blurple.io.ReactionAddReply"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReactionAddReply</span></code></a>.</p>
+<dd><p>An abstract class for getting replies, to be extended.</p>
+<p>If you are trying use this class directly to get a reply from the, you may be looking for <a class="reference internal" href="#blurple.io.MessageReply" title="blurple.io.MessageReply"><code class="xref py py-class docutils literal notranslate"><span class="pre">MessageReply</span></code></a> or <a class="reference internal" href="#blurple.io.ReactionAddReply" title="blurple.io.ReactionAddReply"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReactionAddReply</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Extending this class:</dt>
 <dd class="field-odd"><p></p></dd>
