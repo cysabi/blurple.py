@@ -13,14 +13,14 @@ from  blurple import ui
 class Reply(ABC):
     """ An abstract class for getting replies, to be extended.
 
-        If you are trying use this class directly to get a reply from the, you may be looking for :class:`MessageReply` or :class:`ReactionAddReply`.
+        If you are trying to get a reply from the user directly, you may be looking for :class:`MessageReply` or :class:`ReactionAddReply`.
 
         :Extending this class::
         In order to extend this class, there are 5 methods you can specialize.
 
         - :func:`on_reply_init` Use this method to initialize variables at the start.
         - :func:`on_pre_reply` Use this method to prepare anything before reply attempts.
-        - :func:`reply_check` This is required. Use this method to decide with replies to respond to.
+        - :func:`reply_check` This is required. Evaluate whether an event call is considered a user reply attempt.
         - :func:`on_reply_attempt` Use this method to handle resetting the state after a reply attempt.
         - :func:`on_reply_complete` Use this method to handle final cleanup.
 
