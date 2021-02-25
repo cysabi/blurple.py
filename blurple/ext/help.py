@@ -5,7 +5,8 @@ from discord.ext import commands
 class HelpCommand(commands.DefaultHelpCommand):
     """ A drop-in replacement for the default HelpCommand class.
 
-        :param [color]: Specify a custom color to use for the help embed.
+        :param discord.Embed [embed]: Specify a custom :class:`discord.Embed` subclass to use for the help embed.
+        :param dict [embed_args]: Specify custom arguments to pass to the :class:`discord.Embed` class used for the help embed.
 
         :Example Usage:
         .. code-block:: python
@@ -14,9 +15,10 @@ class HelpCommand(commands.DefaultHelpCommand):
             bot.help_command = ext.HelpCommand()
     """
 
-    def __init__(self, color = discord.Embed.Empty, **options):
+    def __init__(self, embed: discord.Embed = discord.Embed, embed_args: dict = {}, **options):
         super().__init__(**options)
-        self.color = color
+        self.embed = embed
+        self.embed_args = embed_args
 
     async def send_bot_help(self, mapping):
         """"""
@@ -88,11 +90,16 @@ class HelpCommand(commands.DefaultHelpCommand):
 
     def create_embed(self, fields: list = (), **kwargs):
         """"""
-        embed = discord.Embed(color=self.color, **kwargs)
+        # Create embed
+        embed = self.embed(**{**self.embed_args, **kwargs})
+        # Add fields
         for field in fields:
             embed.add_field(**field, inline=False)
-        embed.set_footer(
-            text=f"Type {self.clean_prefix}help command for more info on a command. You can also type {self.clean_prefix}help category for more info on a category.")
+        # Set footer
+        footer = getattr(embed, '_footer', {})
+        footer["text"] = f"Type {self.clean_prefix}help command for more info on a command. You can also type {self.clean_prefix}help category for more info on a category."
+        embed.set_footer(**footer)
+
         return embed
 
     def sig(self, command, *, doc=False, sig=False):
