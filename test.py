@@ -15,31 +15,31 @@ async def on_ready():
 
 @router.route(["alert", "styles"])
 async def styles(ctx):
-    await ctx.send(embed=ui.Alert(ui.Style.PRIMARY, "This is a test alert", "Check it out!"))
-    await ctx.send(embed=ui.Alert(ui.Style.SECONDARY, "This is a test alert", "Check it out!"))
-    await ctx.send(embed=ui.Alert(ui.Style.SUCCESS, "This is a test alert", "Check it out!"))
-    await ctx.send(embed=ui.Alert(ui.Style.DANGER, "This is a test alert", "Check it out!"))
-    await ctx.send(embed=ui.Alert(ui.Style.WARNING, "This is a test alert", "Check it out!"))
-    await ctx.send(embed=ui.Alert(ui.Style.INFO, "This is a test alert", "Check it out!"))
-    await ctx.send(embed=ui.Alert(ui.Style.LIGHT, "This is a test alert", "Check it out!"))
-    await ctx.send(embed=ui.Alert(ui.Style.DARK, "This is a test alert", "Check it out!"))
-    await ctx.send(embed=ui.Alert(ui.Style.GHOST, "This is a test alert", "Check it out!"))
-    await ctx.send(embed=ui.Alert((0x9266CC, "\U0001f347", "Grape"), "This is a custom style alert", "Check it out!"))
+    await ui.Alert(ui.Style.PRIMARY, "This is a test alert", "Check it out!").send(ctx)
+    await ui.Alert(ui.Style.SECONDARY, "This is a test alert", "Check it out!").send(ctx)
+    await ui.Alert(ui.Style.SUCCESS, "This is a test alert", "Check it out!").send(ctx)
+    await ui.Alert(ui.Style.DANGER, "This is a test alert", "Check it out!").send(ctx)
+    await ui.Alert(ui.Style.WARNING, "This is a test alert", "Check it out!").send(ctx)
+    await ui.Alert(ui.Style.INFO, "This is a test alert", "Check it out!").send(ctx)
+    await ui.Alert(ui.Style.LIGHT, "This is a test alert", "Check it out!").send(ctx)
+    await ui.Alert(ui.Style.DARK, "This is a test alert", "Check it out!").send(ctx)
+    await ui.Alert(ui.Style.GHOST, "This is a test alert", "Check it out!").send(ctx)
+    await ui.Alert((0x9266CC, "\U0001f347", "Grape"), "This is a custom style alert", "Check it out!").send(ctx)
 
 @router.route(["alert", "custom"])
 async def custom(ctx):
-    await ctx.send(embed=ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "Default style"))
-    await ctx.send(embed=ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "Alternate name", name="Alternate"))
-    await ctx.send(embed=ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "No name", name=False))
-    await ctx.send(embed=ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "No emoji", emoji=False))
-    await ctx.send(embed=ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "No emoji, alternate name", emoji=False, name="Alternate"))
-    await ctx.send(embed=ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "No emoji, no name", emoji=False, name=False))
+    await ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "Default style").send(ctx)
+    await ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "Alternate name", name="Alternate").send(ctx)
+    await ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "No name", name=False).send(ctx)
+    await ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "No emoji", emoji=False).send(ctx)
+    await ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "No emoji, alternate name", emoji=False, name="Alternate").send(ctx)
+    await ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "No emoji, no name", emoji=False, name=False).send(ctx)
 
 @router.route(["reply", "message"])
 async def message(ctx):
     await ctx.send("Enter a number.")
     reply = await io.MessageReply(ctx, validate=r'^[0-9]{1,}$').result()
-    await ctx.send(embed=ui.Alert(ui.Style.SUCCESS, "Valid Reply", reply.content))
+    await ui.Alert(ui.Style.SUCCESS, "Valid Reply", reply.content).send(ctx)
 
 @router.route(["reply", "multiple"])
 async def multiple(ctx):

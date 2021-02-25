@@ -1,8 +1,9 @@
-from .style import Style
 import discord
 
+import blurple.ui as ui
 
-class Alert(discord.Embed):
+
+class Alert(ui.Base):
     """ A subclass of :class:`discord.Embed` for stylish alert messages.
 
         :param Style style: The style of the alert.
@@ -16,15 +17,15 @@ class Alert(discord.Embed):
                 This will automatically be removed if a custom style specifies it as an empty string.
     """
 
-    def __init__(self, style: Style, title: str, description: str = discord.Embed.Empty, **options):
+    def __init__(self, style: ui.Style, title: str, description: str = discord.Embed.Empty, **options):
         super().__init__(
             color=style[0],
             title=self.process_title(style, title, **options),
             description=description
         )
 
-    @classmethod
-    def process_title(cls, style: Style, title: str, **options):
+    @staticmethod
+    def process_title(style: ui.Style, title: str, **options):
         output: str = ''
 
         if options.get("emoji") is not False and style[1]:
