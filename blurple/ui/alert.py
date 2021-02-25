@@ -25,10 +25,10 @@ class Alert(discord.Embed):
     def process_title(cls, style: Style, title: str, **options):
         output: str = ''
 
-        if options.get("emoji") is not False:
+        if options.get("emoji") is not False and style[1]:
             output += style[1] + " "
 
-        if (name := options.get("name", style[2])) is not False:
+        if (name := options.get("name", style[2])) is not False and name:
             output += f"`{name}:` "
 
         return output + f"**{title}**"
