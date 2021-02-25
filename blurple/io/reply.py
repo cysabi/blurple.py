@@ -7,7 +7,7 @@ import discord
 from discord.ext import commands
 import asyncio
 
-from  blurple import ui
+import blurple.ui as ui
 
 
 class Reply(ABC):
@@ -39,7 +39,7 @@ class Reply(ABC):
             ctx: commands.Context,
             *,
             validate: t.Optional[t.Union[str, t.Callable, t.List]] = None,
-            on_error: t.Union[str, discord.Embed] = ui.Alert(ui.Style.DANGER, "Invalid Reply"),
+            on_error: t.Union[str, discord.Embed] = ui.Alert(ui.Style.DANGER, title="Invalid Reply"),
             timeout = 180,
             **kwargs) -> None:
         self.ctx = ctx
