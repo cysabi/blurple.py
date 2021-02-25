@@ -48,7 +48,7 @@ async def multiple(ctx):
         io.MessageReply(ctx),
         io.ReactionAddReply(ctx, validate=['☑️','🔘'], message=message)
     })
-    await ctx.send(embed=ui.Alert(ui.Style.SUCCESS, reply, result))
+    await ctx.send(embed=ui.Alert(ui.Style.SUCCESS, reply, io.Reply._get_reply_content(result)))
 
 @router.route(["reply", "reaction"], aliases=["react"])
 async def reaction(ctx):
