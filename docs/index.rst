@@ -45,11 +45,6 @@ ReactionAddReply
 .. autoclass:: blurple.io.ReactionAddReply
    :members:
 
-Toast
-~~~~~
-.. autoclass:: blurple.io.Toast
-   :members:
-
 blurple.ext
 -----------
 All the styled components you'll ever need for building user interfaces in discord.
