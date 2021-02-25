@@ -11,7 +11,9 @@ class Alert(discord.Embed):
         :param **options: Alert options to customize it's look.
 
             :emoji: Defaults to :class:`True`. Can be set to false to remove the emoji from the alert title.
+                This will automatically be removed if a custom style specifies it as an empty string.
             :name: Defaults to :class:`True`. Can be set to false to remove the name of the alert from the title.
+                This will automatically be removed if a custom style specifies it as an empty string.
     """
 
     def __init__(self, style: Style, title: str, description: str = discord.Embed.Empty, **options):
