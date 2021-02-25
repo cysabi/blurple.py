@@ -1,0 +1,2 @@
+class Toast():
+    pass
