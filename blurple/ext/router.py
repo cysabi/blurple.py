@@ -27,10 +27,6 @@ class Router:
         return deco
 
     def get_command_group(self, path: list, func = None, **kwargs):
-        """ Get command group.
-
-            :meta private:
-        """
         if len(path) == 0:
             return self.bot
         # Try and find group

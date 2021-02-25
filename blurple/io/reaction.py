@@ -9,7 +9,7 @@ class ReactionAddReply(io.Reply):
     async def on_reply_init(self, message):
         """Specialized to add vaild reaction emojis to message, if validation is on."""
         self.message = message
-        if self.is_container(self.validate):
+        if self._iscontainer(self.validate):
             for react in self.validate:
                 await self.message.add_reaction(react)
 
