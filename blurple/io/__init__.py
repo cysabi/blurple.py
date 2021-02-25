@@ -1,1 +1,3 @@
-from .reply import Reply, MessageReply, ReactionAddReply
+from .reply import Reply
+from .message import MessageReply
+from .reaction import ReactionAddReply

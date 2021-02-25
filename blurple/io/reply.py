@@ -1,6 +1,4 @@
 from __future__ import annotations
-import re
-import inspect
 import typing as t
 from abc import ABC
 import discord
@@ -247,47 +245,3 @@ class Reply(ABC):
 
             This method runs after a valid reply is returned.
         """
-
-
-class MessageReply(Reply):
-    """ :Example Usage:
-        .. code-block:: python
-
-            reply = await io.MessageReply(ctx, validate=["yes", "no"]).result()
-    """
-    event = "message"
-
-    def reply_check(self, reply: discord.Message):
-        """Specialized to check if the message is in the same channel by the same author."""
-        return reply.author.id == self.ctx.author.id and \
-               reply.channel.id == self.ctx.channel.id and \
-               not reply.content.startswith("\\")
-
-    async def on_reply_attempt(self, reply: discord.Message):
-        """Specialized to delete the reply on attempt."""
-        await reply.delete()
-
-
-class ReactionAddReply(Reply):
-    event = "raw_reaction_add"
-
-    async def on_reply_init(self, message):
-        """Specialized to add vaild reaction emojis to message, if validation is on."""
-        self.message = message
-        if self.is_container(self.validate):
-            for react in self.validate:
-                await self.message.add_reaction(react)
-
-    def reply_check(self, payload):
-        """Specialized to check if payload user and message are valid."""
-        return payload.user_id == self.ctx.author.id and \
-               payload.message_id == self.message.id
-
-    async def on_reply_attempt(self, payload: discord.RawReactionActionEvent):
-        """Specialized to remove the user's reaction."""
-        await self.message.remove_reaction(payload.emoji, self.ctx.bot.get_user(payload.user_id))
-        return payload
-
-    async def on_reply_complete(self):
-        """Specialized to clear all reactions off the message."""
-        await self.message.clear_reactions()
