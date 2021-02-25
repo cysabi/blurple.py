@@ -4,7 +4,7 @@ from enum import Enum
 class Style(Enum):
     """ A contextual class to style components.
 
-    There are 8 `main styles <https://cdn.discordapp.com/attachments/598870131182927873/811085017631555614/unknown.png>`_.
+    There are 9 `main styles <https://cdn.discordapp.com/attachments/598870131182927873/814573079371448330/unknown.png>`_.
 
     - ``PRIMARY``
     - ``SECONDARY``
@@ -14,8 +14,9 @@ class Style(Enum):
     - ``INFO``
     - ``LIGHT``
     - ``DARK``
+    - ``GHOST``
 
-    You can also create a `custom style <https://cdn.discordapp.com/attachments/598870131182927873/811087938678685707/unknown.png>`_:
+    You can also create a `custom style <https://cdn.discordapp.com/attachments/598870131182927873/811087938678685707/unknowna.png>`_:
 
     :Example Usage:
     .. code-block:: python
@@ -36,6 +37,7 @@ class Style(Enum):
     INFO = (0x3B88C3, "\u2139\ufe0f", "Info")
     LIGHT = (0xE6E7E8, "\U0001f533", "Light")
     DARK = (0x31373D, "\U0001f532", "Dark")
+    GHOST = (0x2f3136, "", "")
 
     def __getitem__(self, key):
         return self.value[key]

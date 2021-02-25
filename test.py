@@ -23,6 +23,7 @@ async def styles(ctx):
     await ctx.send(embed=ui.Alert(ui.Style.INFO, "This is a test alert", "Check it out!"))
     await ctx.send(embed=ui.Alert(ui.Style.LIGHT, "This is a test alert", "Check it out!"))
     await ctx.send(embed=ui.Alert(ui.Style.DARK, "This is a test alert", "Check it out!"))
+    await ctx.send(embed=ui.Alert(ui.Style.GHOST, "This is a test alert", "Check it out!"))
     await ctx.send(embed=ui.Alert((0x9266CC, "\U0001f347", "Grape"), "This is a custom style alert", "Check it out!"))
 
 @router.route(["alert", "custom"])
@@ -55,7 +56,8 @@ async def reaction(ctx):
     reply = await io.ReactionAddReply(ctx,
         validate=["<:primary:808874731763007488>", "<:secondary:808874731758813205>"],
         message=message).result()
-    await ctx.send(embed=ui.Alert(ui.Style.SUCCESS, "Valid Reply", str(reply.emoji)))
+    await ctx.send(embed=ui.Toast(ui.Style.SUCCESS, f"Valid Reply: {str(reply.emoji)}"))
+    await ctx.send(embed=ui.Toast(ui.Style.SUCCESS, f"Valid Reply: {str(reply.emoji)}", emoji=False))
 
 
 bot.run(os.getenv("TOKEN"))
