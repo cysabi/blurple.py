@@ -16,7 +16,7 @@ class Style(Enum):
     - ``DARK``
     - ``GHOST``
 
-    You can also create a `custom style <https://cdn.discordapp.com/attachments/598870131182927873/811087938678685707/unknowna.png>`_:
+    You can also create a `custom style <https://cdn.discordapp.com/attachments/598870131182927873/811087938678685707/unknown.png>`_:
 
     :Example Usage:
     .. code-block:: python
