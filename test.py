@@ -56,8 +56,21 @@ async def reaction(ctx):
     reply = await io.ReactionAddReply(ctx,
         validate=["<:primary:808874731763007488>", "<:secondary:808874731758813205>"],
         message=message).result()
-    await ctx.send(embed=ui.Toast(ui.Style.SUCCESS, f"Valid Reply: {str(reply.emoji)}"))
-    await ctx.send(embed=ui.Toast(ui.Style.SUCCESS, f"Valid Reply: {str(reply.emoji)}", emoji=False))
+    await ui.Toast(ui.Style.SUCCESS, f"Valid Reply: {str(reply.emoji)}").send(ctx)
+
+
+@router.route(["toast"])
+async def toast(ctx):
+    class ReactionPanel(io.ReactionAddReply):
+        async def on_reply_complete(self):
+            pass
+
+    message = await ctx.send("Show Toast:")
+    while True:
+        reply = await ReactionPanel(ctx,
+            validate=["<:primary:808874731763007488>"],
+            message=message).result()
+        await ui.Toast(ui.Style.SUCCESS, f"Valid Reply: {str(reply.emoji)}").send(ctx)
 
 
 bot.run(os.getenv("TOKEN"))

@@ -4,7 +4,25 @@ import discord
 import blurple.ui as ui
 import blurple.io as io
 
-class Toast(discord.Embed):
+
+class ToastInteraction(io.ReactionAddReply):
+
+    async def on_reply_init(self, message):
+        await super().on_reply_init(message)
+        self.dismiss = "\u2716\ufe0f"
+        await self.message.add_reaction(self.dismiss)
+
+    def reply_check(self, payload):
+        return super().reply_check(payload) and payload.emoji.name == self.dismiss
+
+    async def on_reply_attempt(self, payload: discord.RawReactionActionEvent):
+        return payload
+
+    async def on_reply_complete(self):
+        await self.message.delete()
+
+
+class Toast(ui.Base):
     """ A subclass of :class:`discord.Embed` for stylish toasts.
 
         The difference between this class and :class:`Alert` is these are intended to hold more deemphasized information.
@@ -17,14 +35,18 @@ class Toast(discord.Embed):
             :emoji: Defaults to :class:`True`. Can be set to false to remove the emoji from the toast.
     """
 
-    def __init__(self, style: Style, text: str, **options):
+    def __init__(self, style: ui.Style, text: str, **options):
         super().__init__(
             color=style[0],
             description=self.process_text(style, text, **options),
         )
 
+    async def send(self, client, duration=5):
+        message = await client.send(embed=self)
+        asyncio.create_task(ToastInteraction(client, message=message, timeout=duration).result())
+
     @classmethod
-    def process_text(cls, style: Style, text: str, **options):
+    def process_text(cls, style: ui.Style, text: str, **options):
         output: str = ''
 
         if options.get("emoji") is not False:
