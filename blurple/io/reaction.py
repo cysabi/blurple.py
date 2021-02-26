@@ -3,12 +3,27 @@ import discord
 import blurple.io as io
 
 
-class ReactionAddReply(io.Reply):
+class ReactionAddBasic(io.Reply):
+    event = "raw_reaction_add"
+
+    async def on_reply_init(self, message):
+        """Sepcialized to pass message object."""
+        self.message = message
+
+    def reply_check(self, payload: discord.RawReactionActionEvent):
+        """Specialized to check if the reaction and payload message is valid."""
+        if not payload.message_id == self.message.id:
+            return False
+        if self._iscontainer(self.validate):
+            return payload.emoji.name
+
+
+class ReactionAddReply(io.ReactionAddBasic):
     event = "raw_reaction_add"
 
     async def on_reply_init(self, message):
         """Specialized to add vaild reaction emojis to message, if validation is on."""
-        self.message = message
+        super().on_reply_init(message)
         if self._iscontainer(self.validate):
             for react in self.validate:
                 await self.message.add_reaction(react)
@@ -26,3 +41,7 @@ class ReactionAddReply(io.Reply):
     async def on_reply_complete(self):
         """Specialized to clear all reactions off the message."""
         await self.message.clear_reactions()
+
+
+class ReactionRemoveBasic(ReactionAddBasic):
+    event = "raw_reaction_remove"
