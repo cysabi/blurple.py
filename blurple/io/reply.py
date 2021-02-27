@@ -147,10 +147,11 @@ class Reply(ABC):
         return getattr(obj, "__contains__", False)
 
     @classmethod
-    async def result_between(cls, replies: t.Container[Reply]):
+    async def result_between(cls, replies: t.Container[Reply]) -> t.Tuple[Reply, t.Any]:
         """ Return the first completed result between multiple reply objects.
 
             :param replies: A collection of Reply objects.
+            :returns: A tuple containing the Reply and the result it returned.
         """
         # Prepare tasks
         timeouts = []
