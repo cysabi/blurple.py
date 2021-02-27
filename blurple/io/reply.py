@@ -151,10 +151,42 @@ class Reply(ABC):
         """ Return the first completed result between multiple reply objects.
 
             :param replies: A collection of Reply objects.
-            :returns: A tuple containing the Reply and the result it returned.
+            :returns: A tuple containing the Reply object and the result it returned.
+
+            :How to use this:
+            This can be an especially powerful function if used correctly.
+            Here's an example of an rsvp list interaction with reactions using this function.
+
+            This is completely contrived for example and not a practical use.
+
+            .. code-block:: python
+
+                rsvp_react = "..."  # Replace this with whatever you want
+                rsvp_list = []
+
+                # Start the reply wait
+                message = await ctx.send("React to RSVP!")
+                await message.add_reaction(rsvp_react)
+
+                add = io.ReactionAddBasic(message, validate=[rsvp_react])
+                remove = io.ReactionRemoveBasic(message, validate=[rsvp_react])
+
+                while True:
+                    obj, result = io.Reply.result_between({add, remove})
+                    if obj is add:
+                        rsvp_list.append(result.user_id)
+                    elif obj is remove:
+                        rsvp_list.remove(result.user_id)
+                    else:  # obj is None (The reply timed out)
+                        break
+
+                # Reply wait complete
+                await message.clear_reactions()
+                await message.edit(f"Here's the list of RSVPrs:\\n{'\\n'.join([f'> <@{user_id}>' for user_id in rsvp_list])}")
         """
         # Prepare tasks
         timeouts = []
+
         def parse_task(reply: Reply):
             # Handle timeout
             timeouts.append(reply.timeout)
@@ -167,16 +199,16 @@ class Reply(ABC):
         task, result = await cls._wait_tasks(tasks, timeout=min(timeouts))
 
         # Get original reply object
-        for reply in replies:
-            if str(reply) == task.get_name():
+        for obj in replies:
+            if str(obj) == task.get_name():
                 break
         # Run cleanup on cancelled replies
-        replies.remove(reply)
+        replies.remove(obj)
         for cancelled in replies:
             await cancelled._cleanup()
 
         # Return original reply object and the result
-        return reply, result
+        return obj, result
 
     @staticmethod
     async def _wait_tasks(tasks: t.Container[asyncio.Task], timeout: int) -> t.Tuple[t.Optional[asyncio.Future], t.Optional[t.Any]]:
