@@ -4,6 +4,7 @@ import blurple.io as io
 
 
 class ReactionAddBasic(io.Reply):
+    """An unopinionated, lower level class to wait for a user to add a reaction."""
     event = "raw_reaction_add"
 
     async def on_reply_init(self, message):
@@ -18,8 +19,19 @@ class ReactionAddBasic(io.Reply):
             return payload.emoji.name in self.validate
 
 
-class ReactionAddReply(io.ReactionAddBasic):
-    event = "raw_reaction_add"
+class ReactionRemoveBasic(ReactionAddBasic):
+    """An unopinionated, lower level class to wait for a user to remove a reaction."""
+    event = "raw_reaction_remove"
+
+
+class ReactionAddReply(ReactionAddBasic):
+    """ Ask for the user's reaction reply.
+
+        :Example Usage:
+        .. code-block:: python
+
+            reply = await io.ReactionAddBasic(ctx, validate=["✅", "❎"]).result()
+    """
 
     async def on_reply_init(self, message):
         """Specialized to add vaild reaction emojis to message, if validation is on."""
@@ -41,7 +53,3 @@ class ReactionAddReply(io.ReactionAddBasic):
     async def on_reply_complete(self):
         """Specialized to clear all reactions off the message."""
         await self.message.clear_reactions()
-
-
-class ReactionRemoveBasic(ReactionAddBasic):
-    event = "raw_reaction_remove"
