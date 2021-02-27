@@ -7,12 +7,12 @@ import blurple.io as io
 
 class ToastInteraction(io.ReactionAddReply):
 
-    async def on_reply_init(self, message):
+    async def on_reply_init(self, message: discord.Message):
         await super().on_reply_init(message)
         self.dismiss = "\u2716\ufe0f"
         await self.message.add_reaction(self.dismiss)
 
-    def reply_check(self, payload):
+    def reply_check(self, payload: discord.RawReactionActionEvent):
         return super().reply_check(payload) and payload.emoji.name == self.dismiss
 
     async def on_reply_attempt(self, payload: discord.RawReactionActionEvent):
@@ -41,7 +41,12 @@ class Toast(ui.Base):
             description=self.process_text(style, text, **options),
         )
 
-    async def send(self, client, duration=5):
+    async def send(self, client: discord.abc.Messageable, duration: int = 5):
+        """ Send the toast out.
+
+            :param client: The client used, usually a :class:`discord.abc.Messageable`. Must have implemented :func:`.send`
+            :param int duration: The duration the toast lasts before disappearing in seconds
+        """
         message = await client.send(embed=self)
         asyncio.create_task(ToastInteraction(client, message=message, timeout=duration).result())
 

@@ -120,7 +120,7 @@ class Reply(ABC):
 
 
     @classmethod
-    async def _validate_reply(cls, reply, valid) -> bool:
+    async def _validate_reply(cls, reply, valid: t.Union[str, t.Container, t.Callable]) -> bool:
         """Detect validation type and check it against the reply."""
         if valid is None:
             return True

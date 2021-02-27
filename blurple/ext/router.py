@@ -1,3 +1,4 @@
+import typing as t
 from discord.ext import commands
 
 class Router:
@@ -21,16 +22,18 @@ class Router:
         """ A shortcut decorator that registers a command route.
 
             :param list[str] command: A list of strings defining the route to the command.
+            :param **kwargs: Any command attributes to pass on, such as aliases.
         """
         def deco(func):
             return self.get_command_group(command, func, **kwargs)
         return deco
 
-    def get_command_group(self, path: list, func = None, **kwargs):
+    def get_command_group(self, path: list, func: t.Optional[t.Callable] = None, **kwargs) -> commands.Group:
+        # Return self.bot if path is the root
         if len(path) == 0:
             return self.bot
         # Try and find group
-        group = self.bot.get_command(" ".join(path))
+        group: commands.Group = self.bot.get_command(" ".join(path))
         # If it doesn't exist, create it group
         if group is None or func:
             # Get the parent group

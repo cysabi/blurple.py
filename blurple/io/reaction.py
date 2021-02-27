@@ -7,7 +7,7 @@ class ReactionAddBasic(io.Reply):
     """An unopinionated, lower level class to wait for a user to add a reaction."""
     event = "raw_reaction_add"
 
-    async def on_reply_init(self, message):
+    async def on_reply_init(self, message: discord.Message):
         """Sepcialized to pass message object."""
         self.message = message
 
@@ -33,14 +33,14 @@ class ReactionAddReply(ReactionAddBasic):
             reply = await io.ReactionAddBasic(ctx, validate=["✅", "❎"]).result()
     """
 
-    async def on_reply_init(self, message):
+    async def on_reply_init(self, message: discord.Message):
         """Specialized to add vaild reaction emojis to message, if validation is on."""
         super().on_reply_init(message)
         if self._iscontainer(self.validate):
             for react in self.validate:
                 await self.message.add_reaction(react)
 
-    def reply_check(self, payload):
+    def reply_check(self, payload: discord.RawReactionActionEvent):
         """Specialized to check if payload user and message are valid."""
         return payload.user_id == self.ctx.author.id and \
                payload.message_id == self.message.id
