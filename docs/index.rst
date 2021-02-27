@@ -35,9 +35,24 @@ Reply
 .. autoclass:: blurple.io.Reply
    :members:
 
+MessageBasic
+~~~~~~~~~~~~
+.. autoclass:: blurple.io.MessageBasic
+   :members:
+
 MessageReply
 ~~~~~~~~~~~~
 .. autoclass:: blurple.io.MessageReply
+   :members:
+
+ReactionAddBasic
+~~~~~~~~~~~~~~~~
+.. autoclass:: blurple.io.ReactionAddBasic
+   :members:
+
+ReactionRemoveBasic
+~~~~~~~~~~~~~~~~
+.. autoclass:: blurple.io.ReactionRemoveBasic
    :members:
 
 ReactionAddReply
