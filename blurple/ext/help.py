@@ -5,7 +5,7 @@ from discord.ext import commands
 class HelpCommand(commands.DefaultHelpCommand):
     """ A drop-in replacement for the default HelpCommand class.
 
-        :param discord.Embed [embed]: Specify a custom :class:`discord.Embed` subclass to use for the help embed.
+        :param discord.Embed [embed]: Specify a custom :class:`discord.Embed` subclass to use for the help embed, defaults to :class:`discord.Embed`.
         :param dict [embed_args]: Specify custom arguments to pass to the :class:`discord.Embed` class used for the help embed.
 
         :Example Usage:
