@@ -200,6 +200,9 @@ class Reply(ABC):
 
         # Get original reply object
         for obj in replies:
+            if task is None:
+                obj = None
+                break
             if str(obj) == task.get_name():
                 break
         # Run cleanup on cancelled replies
