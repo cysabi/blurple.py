@@ -15,7 +15,7 @@ class ReactionAddBasic(io.Reply):
         if not payload.message_id == self.message.id:
             return False
         if self._iscontainer(self.validate):
-            return payload.emoji.name
+            return payload.emoji.name in self.validate
 
 
 class ReactionAddReply(io.ReactionAddBasic):
