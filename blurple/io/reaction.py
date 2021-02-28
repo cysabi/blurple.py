@@ -13,10 +13,10 @@ class ReactionAddBasic(io.Reply):
 
     def reply_check(self, payload: discord.RawReactionActionEvent):
         """Specialized to check if the reaction and payload message is valid."""
-        if not payload.message_id == self.message.id:
-            return False
-        if self._iscontainer(self.validate):
-            return payload.emoji.name in self.validate
+        if payload.message_id == self.message.id and not payload.user_id == self.ctx.me.id:
+            if self._iscontainer(self.validate):
+                return str(payload.emoji) in self.validate
+            return True
 
 
 class ReactionRemoveBasic(ReactionAddBasic):
