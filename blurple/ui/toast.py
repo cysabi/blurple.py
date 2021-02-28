@@ -5,18 +5,17 @@ import blurple.ui as ui
 import blurple.io as io
 
 
-class ToastInteraction(io.ReactionAddReply):
+class ToastInteraction(io.ReactionAddBasic):
+    """A custom toast interaction reply subclass."""
 
     async def on_reply_init(self, message: discord.Message):
         await super().on_reply_init(message)
         self.dismiss = "\u2716\ufe0f"
+        self.validate = [self.dismiss]
         await self.message.add_reaction(self.dismiss)
 
     def reply_check(self, payload: discord.RawReactionActionEvent):
-        return super().reply_check(payload) and payload.emoji.name == self.dismiss
-
-    async def on_reply_attempt(self, payload: discord.RawReactionActionEvent):
-        return payload
+        return super().reply_check(payload) and payload.user_id == self.ctx.author.id
 
     async def on_reply_complete(self):
         await self.message.delete()
