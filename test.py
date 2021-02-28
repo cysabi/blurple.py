@@ -61,13 +61,11 @@ async def reaction(ctx):
 
 @router.route(["toast"])
 async def toast(ctx):
-    class ReactionPanel(io.ReactionAddReply):
-        async def on_reply_complete(self):
-            pass
 
     message = await ctx.send("Show Toast:")
+    await message.add_reaction("<:primary:808874731763007488>")
     while True:
-        reply = await ReactionPanel(ctx,
+        reply = await io.ReactionAddBasic(ctx,
             validate=["<:primary:808874731763007488>"],
             message=message).result()
         await ui.Toast(ui.Style.SUCCESS, f"Valid Reply: {str(reply.emoji)}").send(ctx)
