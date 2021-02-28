@@ -189,14 +189,14 @@ These are used with <code class="xref py py-class docutils literal notranslate">
 </dl>
 <dl class="method">
 <dt id="blurple.ui.Toast.send">
-<em class="property">async </em><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param">client</em>, <em class="sig-param">duration=5</em><span class="sig-paren">)</span><a class="headerlink" href="#blurple.ui.Toast.send" title="Permalink to this definition">¶</a></dt>
-<dd><p>Send the component as a message in discord.</p>
+<em class="property">async </em><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param">client: discord.abc.Messageable</em>, <em class="sig-param">duration: int = 5</em><span class="sig-paren">)</span><a class="headerlink" href="#blurple.ui.Toast.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send the toast out.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>client</strong> – The client used, can be <code class="xref py py-class docutils literal notranslate"><span class="pre">discord.Message</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">commands.Context</span></code> or any other <code class="xref py py-class docutils literal notranslate"><span class="pre">discord.Messageable</span></code>.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">discord.Message</span></code></p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client</strong> – The client used, usually a <code class="xref py py-class docutils literal notranslate"><span class="pre">discord.abc.Messageable</span></code>. Must have implemented <code class="xref py py-func docutils literal notranslate"><span class="pre">send()</span></code></p></li>
+<li><p><strong>duration</strong> (<em>int</em>) – The duration the toast lasts before disappearing in seconds</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -258,9 +258,38 @@ These are used with <code class="xref py py-class docutils literal notranslate">
 <dd class="field-odd"><p><strong>replies</strong> – A collection of Reply objects.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A tuple containing the Reply and the result it returned.</p>
+<dd class="field-even"><p>A tuple containing the Reply object and the result it returned.</p>
 </dd>
+<dt class="field-odd">How to use this</dt>
+<dd class="field-odd"><p></p></dd>
 </dl>
+<p>This can be an especially powerful function if used correctly.
+Here’s an example of an rsvp list interaction with reactions using this function.</p>
+<p>This is completely contrived for example and not a practical use.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rsvp_react</span> <span class="o">=</span> <span class="s2">&quot;...&quot;</span>  <span class="c1"># Replace this with whatever you want</span>
+<span class="n">rsvp_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Start the reply wait</span>
+<span class="n">message</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ctx</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;React to RSVP!&quot;</span><span class="p">)</span>
+<span class="k">await</span> <span class="n">message</span><span class="o">.</span><span class="n">add_reaction</span><span class="p">(</span><span class="n">rsvp_react</span><span class="p">)</span>
+
+<span class="n">add</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">ReactionAddBasic</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="p">[</span><span class="n">rsvp_react</span><span class="p">])</span>
+<span class="n">remove</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">ReactionRemoveBasic</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="p">[</span><span class="n">rsvp_react</span><span class="p">])</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">obj</span><span class="p">,</span> <span class="n">result</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">Reply</span><span class="o">.</span><span class="n">result_between</span><span class="p">({</span><span class="n">add</span><span class="p">,</span> <span class="n">remove</span><span class="p">})</span>
+    <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="n">add</span><span class="p">:</span>
+        <span class="n">rsvp_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">obj</span> <span class="ow">is</span> <span class="n">remove</span><span class="p">:</span>
+        <span class="n">rsvp_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># obj is None (The reply timed out)</span>
+        <span class="k">break</span>
+
+<span class="c1"># Reply wait complete</span>
+<span class="k">await</span> <span class="n">message</span><span class="o">.</span><span class="n">clear_reactions</span><span class="p">()</span>
+<span class="k">await</span> <span class="n">message</span><span class="o">.</span><span class="n">edit</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Here&#39;s the list of RSVPrs:</span><span class="se">\n</span><span class="s2">{&#39;</span><span class="se">\n</span><span class="s2">&#39;.join([f&#39;&gt; &lt;@</span><span class="si">{user_id}</span><span class="s2">&gt;&#39; for user_id in rsvp_list])}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -351,7 +380,7 @@ These are used with <code class="xref py py-class docutils literal notranslate">
 <dd><p>An unopinionated, lower level class to wait for a user to add a reaction.</p>
 <dl class="method">
 <dt id="blurple.io.ReactionAddBasic.on_reply_init">
-<em class="property">async </em><code class="sig-name descname">on_reply_init</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="headerlink" href="#blurple.io.ReactionAddBasic.on_reply_init" title="Permalink to this definition">¶</a></dt>
+<em class="property">async </em><code class="sig-name descname">on_reply_init</code><span class="sig-paren">(</span><em class="sig-param">message: discord.message.Message</em><span class="sig-paren">)</span><a class="headerlink" href="#blurple.io.ReactionAddBasic.on_reply_init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sepcialized to pass message object.</p>
 </dd></dl>
 
@@ -388,13 +417,13 @@ These are used with <code class="xref py py-class docutils literal notranslate">
 </div>
 <dl class="method">
 <dt id="blurple.io.ReactionAddReply.on_reply_init">
-<em class="property">async </em><code class="sig-name descname">on_reply_init</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="headerlink" href="#blurple.io.ReactionAddReply.on_reply_init" title="Permalink to this definition">¶</a></dt>
+<em class="property">async </em><code class="sig-name descname">on_reply_init</code><span class="sig-paren">(</span><em class="sig-param">message: discord.message.Message</em><span class="sig-paren">)</span><a class="headerlink" href="#blurple.io.ReactionAddReply.on_reply_init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specialized to add vaild reaction emojis to message, if validation is on.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="blurple.io.ReactionAddReply.reply_check">
-<code class="sig-name descname">reply_check</code><span class="sig-paren">(</span><em class="sig-param">payload</em><span class="sig-paren">)</span><a class="headerlink" href="#blurple.io.ReactionAddReply.reply_check" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">reply_check</code><span class="sig-paren">(</span><em class="sig-param">payload: discord.raw_models.RawReactionActionEvent</em><span class="sig-paren">)</span><a class="headerlink" href="#blurple.io.ReactionAddReply.reply_check" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specialized to check if payload user and message are valid.</p>
 </dd></dl>
 
@@ -441,7 +470,11 @@ These are used with <code class="xref py py-class docutils literal notranslate">
 <dd><p>A shortcut decorator that registers a command route.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>command</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – A list of strings defining the route to the command.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – A list of strings defining the route to the command.</p></li>
+<li><p><strong>**kwargs</strong> – <p>Any command attributes to pass on, such as aliases.</p>
+</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
