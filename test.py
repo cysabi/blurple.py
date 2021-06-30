@@ -4,8 +4,9 @@ from discord.ext import commands
 
 from blurple import ui, io, ext
 
-
-bot = commands.Bot(command_prefix='!')
+intents = discord.Intents.default()
+intents.members = True
+bot = commands.Bot(command_prefix="!", intents=intents)
 bot.help_command = ext.HelpCommand()
 router = ext.Router(bot)
 

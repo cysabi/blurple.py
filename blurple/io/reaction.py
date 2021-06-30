@@ -35,7 +35,7 @@ class ReactionAddReply(ReactionAddBasic):
 
     async def on_reply_init(self, message: discord.Message):
         """Specialized to add vaild reaction emojis to message, if validation is on."""
-        super().on_reply_init(message)
+        await super().on_reply_init(message)
         if self._iscontainer(self.validate):
             for react in self.validate:
                 await self.message.add_reaction(react)
