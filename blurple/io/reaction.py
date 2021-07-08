@@ -24,7 +24,7 @@ class ReactionRemoveBasic(ReactionAddBasic):
 
 
 class DirectMessageReactionAddReply(ReactionAddBasic):
-    """ Ask for the user's reaction reply.
+    """ Ask for the user's reaction reply. Safe to use in Direct Messages.
 
         :Example Usage:
         .. code-block:: python
@@ -46,6 +46,13 @@ class DirectMessageReactionAddReply(ReactionAddBasic):
 
 
 class ReactionAddReply(DirectMessageReactionAddReply):
+    """ Ask for the user's reaction reply.
+
+        :Example Usage:
+        .. code-block:: python
+
+            reply = await io.ReactionAddBasic(ctx, validate=["✅", "❎"]).result()
+    """
     async def on_reply_attempt(self, payload: discord.RawReactionActionEvent):
         """Specialized to remove the user's reaction."""
         await self.message.remove_reaction(payload.emoji, self.ctx.bot.get_user(payload.user_id))
