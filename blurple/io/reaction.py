@@ -1,6 +1,5 @@
-import discord
-
 import blurple.io as io
+import discord
 
 
 class ReactionAddBasic(io.Reply):
@@ -24,7 +23,7 @@ class ReactionRemoveBasic(ReactionAddBasic):
     event = "raw_reaction_remove"
 
 
-class ReactionAddReply(ReactionAddBasic):
+class DirectMessageReactionAddReply(ReactionAddBasic):
     """ Ask for the user's reaction reply.
 
         :Example Usage:
@@ -45,6 +44,8 @@ class ReactionAddReply(ReactionAddBasic):
         return payload.user_id == self.ctx.author.id and \
                payload.message_id == self.message.id
 
+
+class ReactionAddReply(DirectMessageReactionAddReply):
     async def on_reply_attempt(self, payload: discord.RawReactionActionEvent):
         """Specialized to remove the user's reaction."""
         await self.message.remove_reaction(payload.emoji, self.ctx.bot.get_user(payload.user_id))
