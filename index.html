@@ -101,7 +101,7 @@
 <p>The API Reference is outlined below.</p>
 <div class="section" id="blurple-ui">
 <h2>blurple.ui<a class="headerlink" href="#blurple-ui" title="Permalink to this headline">¶</a></h2>
-<p>Utilities and sane defaults for discord.ext commands.</p>
+<p>All the styled components you’ll ever need for building user interfaces in discord.</p>
 <div class="section" id="style">
 <h3>Style<a class="headerlink" href="#style" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
@@ -239,7 +239,10 @@ These are used with <code class="xref py py-class docutils literal notranslate">
 <li><p>If you pass a <code class="xref py py-class docutils literal notranslate"><span class="pre">function</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">coroutine</span></code>, the function will be called, and the coroutine awaited, validation will succeed when the function returns a Truthy value. The reply object will be passed as a parameter.</p></li>
 </ul>
 </p></li>
-<li><p><strong>error</strong> – An optional parameter specifying the message to send when the user fails validation, defaults to a simple “Invalid Reply” <code class="xref py py-class docutils literal notranslate"><span class="pre">Alert</span></code>.</p></li>
+<li><p><strong>on_error</strong> – An optional parameter specifying the message to send when the user fails validation, defaults to a simple “Invalid Reply” <code class="xref py py-class docutils literal notranslate"><span class="pre">Alert</span></code>.</p></li>
+<li><p><strong>timeout</strong> – An optional parameter to change the default timeout length, defaults to 180 seconds.</p></li>
+<li><p><strong>**kwargs</strong> – <p>Any additional parameters that will be passed to <a class="reference internal" href="#blurple.io.Reply.on_reply_init" title="blurple.io.Reply.on_reply_init"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_reply_init()</span></code></a>. This can be useful if you are extending this class and need to take extra parameters when initializing.</p>
+</p></li>
 </ul>
 </dd>
 </dl>
@@ -445,7 +448,7 @@ Here’s an example of an rsvp list interaction with reactions using this functi
 </div>
 <div class="section" id="blurple-ext">
 <h2>blurple.ext<a class="headerlink" href="#blurple-ext" title="Permalink to this headline">¶</a></h2>
-<p>All the styled components you’ll ever need for building user interfaces in discord.</p>
+<p>Utilities and sane defaults for discord.ext commands.</p>
 <div class="section" id="router">
 <h3>Router<a class="headerlink" href="#router" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
