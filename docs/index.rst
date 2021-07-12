@@ -9,7 +9,7 @@ The API Reference is outlined below.
 
 blurple.ui
 ----------
-Utilities and sane defaults for discord.ext commands.
+All the styled components you'll ever need for building user interfaces in discord.
 
 Style
 ~~~~~
@@ -62,7 +62,7 @@ ReactionAddReply
 
 blurple.ext
 -----------
-All the styled components you'll ever need for building user interfaces in discord.
+Utilities and sane defaults for discord.ext commands.
 
 Router
 ~~~~~~
