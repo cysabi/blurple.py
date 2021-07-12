@@ -131,8 +131,8 @@ class Reply(ABC):
             return content in valid
         if callable(valid):
             if inspect.iscoroutinefunction(object):
-                return await valid()
-            return valid()
+                return await valid(reply)
+            return valid(reply)
 
     @staticmethod
     def _get_reply_content(reply):
