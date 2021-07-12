@@ -32,7 +32,9 @@ class Reply(ABC):
             - If you pass a :class:`str`, validation will succeed when the reply content matches the string as a regex.
             - If you pass a :class:`function` or :class:`coroutine`, the function will be called, and the coroutine awaited, validation will succeed when the function returns a Truthy value. The reply object will be passed as a parameter.
 
-        :param error: An optional parameter specifying the message to send when the user fails validation, defaults to a simple "Invalid Reply" :class:`~Alert`.
+        :param on_error: An optional parameter specifying the message to send when the user fails validation, defaults to a simple "Invalid Reply" :class:`~Alert`.
+        :param timeout: An optional parameter to change the default timeout length, defaults to 180 seconds.
+        :param **kwargs: Any additional parameters that will be passed to :func:`on_reply_init`. This can be useful if you are extending this class and need to take extra parameters when initializing.
     """
 
     def __init__(self,
