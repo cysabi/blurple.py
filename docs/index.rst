@@ -73,3 +73,9 @@ HelpCommand
 ~~~~~~~~~~~
 .. autoclass:: blurple.ext.HelpCommand
    :members:
+
+DurationConverter
+~~~~~~~~~~~
+.. autoclass:: blurple.ext.DurationConverter
+   :members:
+

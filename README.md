@@ -14,8 +14,7 @@ Here's what's included:
 2. `blurple.io` Robust functions that enable you to build stable, multi-step commands with ease.
     - Support for multi-event replies, and timeout handling by default.
 3. `blurple.ext` Utilities and sane defaults for discord.ext commands.
-    - An unopinionated drop-in replacement for the builtin help command.
-    - A minimal, route-based microframework for registering commands.
+    - Drop-in replacements, addons, and other small gadgets.
 
 ## Usage <!-- Using the product -->
 _Documentation can be found [here](https://lepto.tech/blurple.py)._
