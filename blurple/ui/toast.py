@@ -25,7 +25,7 @@ class Toast(ui.Base):
     """ A subclass of :class:`discord.Embed` for stylish toasts.
 
         The difference between this class and :class:`Alert` is these are intended to hold more deemphasized information.
-        These are used with :class:`blurple.io.Toast`, which supports a "dismiss" button to dismiss the toast, and automatic deletion with specified duration.
+        Some functionality is implemented with :module:`blurple.io`, such as the "dismiss" button, and automatic dismissal after the specified duration.
 
         :param Style style: The style of the toasts.
         :param str text: The text of the toasts, will be wrapped in an emoji unless specified in options.
