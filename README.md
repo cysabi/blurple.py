@@ -8,7 +8,7 @@
 
 Blurple.py is a framework built on top of discord.py, giving you the tools you need to build discord bots with convenience.
 
-> :warning: hey! thanks for checking this library out. it's not currently being maintained, however all the code is in a stable place and you shouldn't run into any outdated features.
+> :warning: hey! thanks for checking this library out. please note that this library is not currently being maintained. that being said, you probably won't encounter any issues if you choose to still use it!
 
 Here's what's included:
 1. `blurple.ui` All the styled components you'll ever need for building user interfaces in discord.
