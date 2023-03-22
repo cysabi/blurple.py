@@ -18,14 +18,14 @@ Here's what's included:
 3. `blurple.ext` Utilities and sane defaults for discord.ext commands.
     - Drop-in replacements, addons, and other small gadgets.
 
-## Usage <!-- Using the product -->
+## usage <!-- Using the product -->
 _Documentation can be found [here](https://lepto.tech/blurple.py)._
 
-### Installation
+### installation
 1. Make sure your python version is up-to-date.
 1. Install the package with `pip install blurple.py`.
 
-### Example with `blurple.ui`
+### example with `blurple.ui`
 ```diff
   import discord
   from discord.ext import commands
@@ -47,7 +47,7 @@ _Documentation can be found [here](https://lepto.tech/blurple.py)._
 ![Usage](usage.png)
 
 
-## Running locally
+## running locally
 1. Clone the repository
     `git clone https://github.com/LeptoFlare/blurple.py.git`
 1. Create a `.env` in the repository root with your token:
@@ -57,7 +57,7 @@ _Documentation can be found [here](https://lepto.tech/blurple.py)._
 
 ---
 
-Contact me · **[@LeptoFlare](https://github.com/LeptoFlare)** · [lepto.tech](https://lepto.tech)
+**[@LeptoFlare](https://github.com/LeptoFlare)** · [lepto.tech](https://lepto.tech)
 
 As always, distributed under the MIT license. See `LICENSE` for more information.
 
