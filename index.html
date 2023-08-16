@@ -529,6 +529,11 @@ Here’s an example of an rsvp list interaction with reactions using this functi
 <dt class="field-odd">Example Usage</dt>
 <dd class="field-odd"><p></p></dd>
 </dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blurple</span> <span class="kn">import</span> <span class="n">ext</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">mycommand</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="n">ext</span><span class="o">.</span><span class="n">DurationConverter</span><span class="p">):</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="blurple.ext.DurationConverter.convert">
 <em class="property">async </em><code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param">ctx</em>, <em class="sig-param">argument: str</em><span class="sig-paren">)</span><a class="headerlink" href="#blurple.ext.DurationConverter.convert" title="Permalink to this definition">¶</a></dt>
