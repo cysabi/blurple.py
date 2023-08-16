@@ -514,7 +514,21 @@ Here’s an example of an rsvp list interaction with reactions using this functi
 <dl class="class">
 <dt id="blurple.ext.DurationConverter">
 <em class="property">class </em><code class="sig-prename descclassname">blurple.ext.</code><code class="sig-name descname">DurationConverter</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#blurple.ext.DurationConverter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts to a duration of time.</p>
+<dd><p>Converter to process text-based durations of time to datetime.</p>
+<ul class="simple">
+<li><p>years: <cite>y/Y</cite>, <cite>yr(s)</cite>, <cite>year(s)</cite></p></li>
+<li><p>months: <cite>m</cite>, <cite>mon(s)</cite>, <cite>month(s)</cite></p></li>
+<li><p>weeks: <cite>w/W</cite>, <cite>week(s)</cite></p></li>
+<li><p>days: <cite>d/D</cite>, <cite>day(s)</cite></p></li>
+<li><p>hours: <cite>h/H</cite>, <cite>hr(s)</cite>, <cite>hour(s)</cite></p></li>
+<li><p>minutes: <cite>M</cite>, <cite>min(s)</cite>, <cite>minute(s)</cite></p></li>
+<li><p>seconds: <cite>s/S</cite>, <cite>sec(s)</cite>, <cite>second(s)</cite></p></li>
+</ul>
+<p>Units must be provided in descending order of magnitude.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Example Usage</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
 <dl class="method">
 <dt id="blurple.ext.DurationConverter.convert">
 <em class="property">async </em><code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param">ctx</em>, <em class="sig-param">argument: str</em><span class="sig-paren">)</span><a class="headerlink" href="#blurple.ext.DurationConverter.convert" title="Permalink to this definition">¶</a></dt>
