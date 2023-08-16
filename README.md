@@ -57,10 +57,6 @@ _Documentation can be found [here](https://cerusabi.github.io/blurple.py)._
 
 ---
 
-**[@LeptoFlare](https://github.com/LeptoFlare)** · [lepto.tech](https://lepto.tech)
-
-As always, distributed under the MIT license. See `LICENSE` for more information.
-
 <!-- markdown links & imgs -->
 [pypi-shield]: https://img.shields.io/pypi/v/blurple.py.svg
 [stars-shield]: https://img.shields.io/github/stars/LeptoFlare/blurple.py.svg?style=social
