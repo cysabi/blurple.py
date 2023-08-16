@@ -29,8 +29,8 @@ class Style(Enum):
     Alternatively, if you want, you can support me on `ko-fi <https://ko-fi.com/s/7705c20532>`_, and I'll invite your bot to my server with the original custom emojis.
 
     """
-    PRIMARY = (0x7289DA, "<:primary:808874731763007488>", "Primary")
-    SECONDARY = (0x99AAB5, "<:secondary:808874731758813205>", "Secondary")
+    PRIMARY = (0x7289DA, "<:primary:1141303057351712800>", "Primary")
+    SECONDARY = (0x99AAB5, "<:secondary:1141303059490820156>", "Secondary")
     SUCCESS = (0x77B255, "\u2705", "Success")
     DANGER = (0xDD2E44, "\U0001f6ab", "Danger")
     WARNING = (0xFFCC4D, "\u26a0\ufe0f", "Warning")

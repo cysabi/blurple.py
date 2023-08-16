@@ -6,6 +6,7 @@ from blurple import ui, io, ext
 
 intents = discord.Intents.default()
 intents.members = True
+intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 bot.help_command = ext.HelpCommand()
 router = ext.Router(bot)

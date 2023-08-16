@@ -15,10 +15,10 @@ with open('README.md') as file:
 
 
 kwargs = {
-    "author": 'LeptoFlare',
-    "url": 'https://github.com/LeptoFlare/blurple.py',
+    "author": 'cerusabi',
+    "url": 'https://github.com/cerusabi/blurple.py',
     "project_urls": {
-        "Issues": "https://github.com/LeptoFlare/blurple.py/issues",
+        "Issues": "https://github.com/cerusabi/blurple.py/issues",
         "Docs": "https://lepto.tech/blurple.py",
     },
     "version": version,

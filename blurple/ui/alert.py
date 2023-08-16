@@ -17,7 +17,7 @@ class Alert(ui.Base):
                 This will automatically be removed if a custom style specifies it as an empty string.
     """
 
-    def __init__(self, style: ui.Style, title: str, description: str = discord.Embed.Empty, **options):
+    def __init__(self, style: ui.Style, title: str, description: str = None, **options):
         super().__init__(
             color=style[0],
             title=self.process_title(style, title, **options),

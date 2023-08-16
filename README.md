@@ -8,7 +8,7 @@
 
 Blurple.py is a framework built on top of discord.py, giving you the tools you need to build discord bots with convenience.
 
-> :warning: hey! thanks for checking this library out. please note that this library is not currently being maintained. that being said, you probably won't encounter any issues if you choose to still use it!
+> :warning: hey! thanks for checking this library out. although this library is not actively being maintained, it is stable and you probably won't encounter any issues if you use it! if you do happen to run into any issues, feel free to make an issue and preferrably PR and i'll get to it as soon as i can :)
 
 Here's what's included:
 1. `blurple.ui` All the styled components you'll ever need for building user interfaces in discord.
@@ -49,7 +49,7 @@ _Documentation can be found [here](https://cerusabi.github.io/blurple.py)._
 
 ## running locally
 1. Clone the repository
-    `git clone https://github.com/LeptoFlare/blurple.py.git`
+    `git clone https://github.com/cerusabi/blurple.py.git`
 1. Create a `.env` in the repository root with your token:
     `TOKEN=kpXVCJ9.pLY.Q6m9F`
 1. The repo contains a `test.py` file used for testing, simply run the file
@@ -57,9 +57,9 @@ _Documentation can be found [here](https://cerusabi.github.io/blurple.py)._
 
 ---
 
-[**@cerusabi**](https://github.com/LeptoFlare) • [cerusabi.github.io](https://cerusabi.github.io)
+[**@cerusabi**](https://github.com/cerusabi) • [cerusabi.github.io](https://cerusabi.github.io)
 
 <!-- markdown links & imgs -->
 [pypi-shield]: https://img.shields.io/pypi/v/blurple.py.svg
-[stars-shield]: https://img.shields.io/github/stars/LeptoFlare/blurple.py.svg?style=social
-[license-shield]: https://img.shields.io/github/license/LeptoFlare/blurple.py.svg?style=flat
+[stars-shield]: https://img.shields.io/github/stars/cerusabi/blurple.py.svg?style=social
+[license-shield]: https://img.shields.io/github/license/cerusabi/blurple.py.svg?style=flat
