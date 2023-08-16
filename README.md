@@ -19,7 +19,7 @@ Here's what's included:
     - Drop-in replacements, addons, and other small gadgets.
 
 ## usage <!-- Using the product -->
-_Documentation can be found [here](https://lepto.tech/blurple.py)._
+_Documentation can be found [here](https://cerusabi.github.io/blurple.py)._
 
 ### installation
 1. Make sure your python version is up-to-date.
