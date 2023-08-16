@@ -57,6 +57,8 @@ _Documentation can be found [here](https://cerusabi.github.io/blurple.py)._
 
 ---
 
+[**@cerusabi**](https://github.com/LeptoFlare) • [cerusabi.github.io](https://cerusabi.github.io)
+
 <!-- markdown links & imgs -->
 [pypi-shield]: https://img.shields.io/pypi/v/blurple.py.svg
 [stars-shield]: https://img.shields.io/github/stars/LeptoFlare/blurple.py.svg?style=social
