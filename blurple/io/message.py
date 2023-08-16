@@ -8,13 +8,13 @@ class MessageBasic(io.Reply):
     event = "message"
 
     def reply_check(self, reply: discord.Message):
-        """Specialized to check if the message is in the same channel by the same author."""
+        """Specialized to check if the message is in the same channel, and is by the same author."""
         return reply.author.id == self.ctx.author.id and \
                reply.channel.id == self.ctx.channel.id
 
 
 class MessageReply(MessageBasic):
-    """ Ask for the user's message reply.
+    """ Wait for a user to send a reply.
 
         :Example Usage:
         .. code-block:: python
