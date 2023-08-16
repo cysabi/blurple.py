@@ -8,18 +8,23 @@ from dateutil.relativedelta import relativedelta
 
 
 class DurationConverter(commands.Converter):
-    """Converts to a duration of time."""
+    """ Converter to process text-based durations of time to datetime.
 
-    symbols = """
-    - years: `y/Y`, `yr(s)`, `year(s)`
-    - months: `m`, `mon(s)`, `month(s)`
-    - weeks: `w/W`, `week(s)`
-    - days: `d/D`, `day(s)`
-    - hours: `h/H`, `hr(s)`, `hour(s)`
-    - minutes: `M`, `min(s)`, `minute(s)`
-    - seconds: `s/S`, `sec(s)`, `second(s)`
+        - years: `y/Y`, `yr(s)`, `year(s)`
+        - months: `m`, `mon(s)`, `month(s)`
+        - weeks: `w/W`, `week(s)`
+        - days: `d/D`, `day(s)`
+        - hours: `h/H`, `hr(s)`, `hour(s)`
+        - minutes: `M`, `min(s)`, `minute(s)`
+        - seconds: `s/S`, `sec(s)`, `second(s)`
 
-    Units must be provided in descending order of magnitude.
+        Units must be provided in descending order of magnitude.
+
+        :Example Usage:
+        .. code-block:: python
+            from blurple import ext
+
+            async def mycommand(ctx, *, duration: ext.DurationConverter):
     """
 
     complied = re.compile(
