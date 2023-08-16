@@ -30,7 +30,7 @@ class ReactionAddReply(ReactionAddBasic):
         :Example Usage:
         .. code-block:: python
 
-            reply = await io.ReactionAddBasic(ctx, validate=["✅", "❎"]).result()
+            reply = await io.ReactionAddReply(ctx, validate=["✅", "❎"]).result()
     """
 
     async def on_reply_init(self, message: discord.Message):
