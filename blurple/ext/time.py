@@ -22,6 +22,7 @@ class DurationConverter(commands.Converter):
 
         :Example Usage:
         .. code-block:: python
+        
             from blurple import ext
 
             async def mycommand(ctx, *, duration: ext.DurationConverter):
