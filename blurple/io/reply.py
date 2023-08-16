@@ -163,7 +163,7 @@ class Reply(ABC):
 
             .. code-block:: python
 
-                rsvp_react = "..."  # Replace this with whatever you want
+                rsvp_react = "📝"  # Replace this with whatever you want
                 rsvp_list = []
 
                 # Start the reply wait
@@ -174,7 +174,7 @@ class Reply(ABC):
                 remove = io.ReactionRemoveBasic(message, validate=[rsvp_react])
 
                 while True:
-                    obj, result = io.Reply.result_between({add, remove})
+                    obj, result = await io.Reply.result_between({add, remove})
                     if obj is add:
                         rsvp_list.append(result.user_id)
                     elif obj is remove:
