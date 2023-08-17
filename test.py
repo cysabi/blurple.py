@@ -30,7 +30,6 @@ async def styles(ctx):
     await ui.Alert(ui.Style.GHOST, "This is a test alert", "Check it out!").send(ctx)
     await ui.Alert((0x9266CC, "\U0001f347", "Grape"), "This is a custom style alert", "Check it out!").send(ctx)
 
-
 @router.route(["alert", "custom"])
 async def custom(ctx):
     await ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "Default style").send(ctx)
@@ -40,13 +39,19 @@ async def custom(ctx):
     await ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "No emoji, alternate name", emoji=False, name="Alternate").send(ctx)
     await ui.Alert(ui.Style.PRIMARY, "Custom Alerts", "No emoji, no name", emoji=False, name=False).send(ctx)
 
-
 @router.route(["reply", "message"])
 async def message(ctx):
     await ctx.send("Enter a number.")
     reply = await io.MessageReply(ctx, validate=r'^[0-9]{1,}$').result()
     await ui.Alert(ui.Style.SUCCESS, "Valid Reply", reply.content).send(ctx)
 
+@router.route(["reply", "reaction"], aliases=["react"])
+async def reaction(ctx):
+    message = await ctx.send("Enter reaction.")
+    reply = await io.ReactionAddReply(ctx,
+        validate=["<:primary:1141303057351712800>", "<:secondary:1141303059490820156>"],
+        message=message).result()
+    await ui.Alert(ui.Style.SUCCESS, "Valid Reply", str(reply.emoji)).send(ctx)
 
 @router.route(["reply", "multiple"])
 async def multiple(ctx):
@@ -57,23 +62,13 @@ async def multiple(ctx):
     })
     await ctx.send(embed=ui.Alert(ui.Style.SUCCESS, reply, io.Reply._get_reply_content(result)))
 
-
-@router.route(["reply", "reaction"], aliases=["react"])
-async def reaction(ctx):
-    message = await ctx.send("Enter reaction.")
-    reply = await io.ReactionAddReply(ctx,
-        validate=["<:primary:808874731763007488>", "<:secondary:808874731758813205>"],
-        message=message).result()
-    await ui.Toast(ui.Style.SUCCESS, f"Valid Reply: {str(reply.emoji)}").send(ctx)
-
-
 @router.route(["toast"])
 async def toast(ctx):
     message = await ctx.send("Show Toast:")
-    await message.add_reaction("<:primary:808874731763007488>")
+    await message.add_reaction("<:primary:1141303057351712800>")
     while True:
         reply = await io.ReactionAddBasic(ctx,
-            validate=["<:primary:808874731763007488>"],
+            validate=["<:primary:1141303057351712800>"],
             message=message).result()
         await ui.Toast(ui.Style.SUCCESS, f"Valid Reply: {str(reply.emoji)}").send(ctx)
 
