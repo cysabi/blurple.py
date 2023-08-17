@@ -41,7 +41,7 @@ class Reply(ABC):
             ctx: commands.Context,
             *,
             validate: t.Optional[t.Union[str, t.Callable, t.List]] = None,
-            on_error: t.Union[str, discord.Embed] = ui.Alert(ui.Style.DANGER, title="Invalid Reply"),
+            on_error: t.Union[str, discord.Embed] = ui.Alert(ui.Style.DANGER, name="Error", title="Invalid Reply"),
             timeout = 180,
             **kwargs) -> None:
         self.ctx = ctx
