@@ -49,7 +49,7 @@ async def message(ctx):
 async def reaction(ctx):
     message = await ctx.send("Enter reaction.")
     reply = await io.ReactionAddReply(ctx,
-        validate=["<:primary:1141303057351712800>", "<:secondary:1141303059490820156>"],
+        validate=["<:primary:1141577169039020052>", "<:secondary:1141577170095976518>"],
         message=message).result()
     await ui.Alert(ui.Style.SUCCESS, "Valid Reply", str(reply.emoji)).send(ctx)
 
@@ -64,13 +64,7 @@ async def multiple(ctx):
 
 @router.route(["toast"])
 async def toast(ctx):
-    message = await ctx.send("Show Toast:")
-    await message.add_reaction("<:primary:1141303057351712800>")
-    while True:
-        reply = await io.ReactionAddBasic(ctx,
-            validate=["<:primary:1141303057351712800>"],
-            message=message).result()
-        await ui.Toast(ui.Style.SUCCESS, f"Valid Reply: {str(reply.emoji)}").send(ctx)
+    await ui.Toast(ui.Style.INFO, f"This is a toast!").send(ctx)
 
 
 bot.run(os.getenv("TOKEN"))

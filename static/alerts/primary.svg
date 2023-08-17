@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg width="36px" height="36px" viewbox="0 0 36 36" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-  <path d="M36 32C36 34.209 34.209 36 32 36L4 36C1.791 36 0 34.209 0 32L0 4C0 1.791 1.791 0 4 0L32 0C34.209 0 36 1.791 36 4L36 32L36 32L36 32Z" id="Shape" fill="#7289DA" fill-rule="evenodd" stroke="none" />
+  <path d="M36 32C36 34.209 34.209 36 32 36L4 36C1.791 36 0 34.209 0 32L0 4C0 1.791 1.791 0 4 0L32 0C34.209 0 36 1.791 36 4L36 32L36 32L36 32Z" id="Shape" fill="#5865F2" fill-rule="evenodd" stroke="none" />
   <path d="M24 22C24 23.104 23.104 24 22 24L2 24C0.896 24 0 23.104 0 22L0 2C0 0.896 0.896 0 2 0L22 0C23.104 0 24 0.896 24 2L24 22L24 22L24 22Z" transform="translate(6 6)" id="Shape#1" fill="#99AAB5" fill-rule="evenodd" stroke="none" />
 </svg>
