@@ -37,7 +37,7 @@ class Style(Enum):
     INFO = (0x3B88C3, "\u2139\ufe0f", "Info")
     LIGHT = (0xE6E7E8, "\U0001f533", "Light")
     DARK = (0x31373D, "\U0001f532", "Dark")
-    GHOST = (0x2f3136, "", "")
+    GHOST = (0x2b2d31, "", "")
 
     def __getitem__(self, key):
         return self.value[key]
