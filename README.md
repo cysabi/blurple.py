@@ -55,10 +55,6 @@ _Documentation can be found [here](https://cerusabi.github.io/blurple.py)._
 1. The repo contains a `test.py` file used for testing, simply run the file
     `python3 test.py`
 
----
-
-[**@cerusabi**](https://github.com/cerusabi) • [cerusabi.github.io](https://cerusabi.github.io)
-
 <!-- markdown links & imgs -->
 [pypi-shield]: https://img.shields.io/pypi/v/blurple.py.svg
 [stars-shield]: https://img.shields.io/github/stars/cerusabi/blurple.py.svg?style=social
