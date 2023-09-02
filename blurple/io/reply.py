@@ -1,13 +1,14 @@
 from __future__ import annotations
-import re
+
+import asyncio
 import inspect
+import re
 import typing as t
 from abc import ABC
-import discord
-from discord.ext import commands
-import asyncio
 
 import blurple.ui as ui
+import discord
+from discord.ext import commands
 
 
 class Reply(ABC):
