@@ -19,7 +19,7 @@ Here's what's included:
     - Drop-in replacements, addons, and other small gadgets.
 
 ## usage <!-- Using the product -->
-_Documentation can be found [here](https://cerusabi.github.io/blurple.py)._
+_Documentation can be found [here](https://cysabi.github.io/blurple.py)._
 
 ### installation
 1. Make sure your python version is up-to-date.
@@ -49,13 +49,17 @@ _Documentation can be found [here](https://cerusabi.github.io/blurple.py)._
 
 ## running locally
 1. Clone the repository
-    `git clone https://github.com/cerusabi/blurple.py.git`
+    `git clone https://github.com/cysabi/blurple.py.git`
 1. Create a `.env` in the repository root with your token:
     `TOKEN=kpXVCJ9.pLY.Q6m9F`
 1. The repo contains a `test.py` file used for testing, simply run the file
     `python3 test.py`
 
+---
+
+*empathy included • [**@cysabi**](https://github.com/cysabi) • [cysabi.github.io](https://cysabi.github.io)*
+
 <!-- markdown links & imgs -->
 [pypi-shield]: https://img.shields.io/pypi/v/blurple.py.svg
-[stars-shield]: https://img.shields.io/github/stars/cerusabi/blurple.py.svg?style=social
-[license-shield]: https://img.shields.io/github/license/cerusabi/blurple.py.svg?style=flat
+[stars-shield]: https://img.shields.io/github/stars/cysabi/blurple.py.svg?style=social
+[license-shield]: https://img.shields.io/github/license/cysabi/blurple.py.svg?style=flat
