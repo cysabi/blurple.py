@@ -44,9 +44,6 @@ _Documentation can be found [here](https://cysabi.github.io/blurple.py)._
   bot.run('token')
 ```
 
-![Usage](usage.png)
-
-
 ## running locally
 1. Clone the repository
     `git clone https://github.com/cysabi/blurple.py.git`
